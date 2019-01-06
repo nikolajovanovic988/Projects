@@ -1,0 +1,20 @@
+
+Hello,
+
+  This is my virtual interview :). And my
+way to say more about me. I will start
+from begining.
+
+  The first book I read is "The Art and
+Science of Java" by Eric S. Roberts.
+The book was folowing course led by
+Mehran Sahami, in Stanford University.
+I finished all assigments and exams.
+The course and the book is teaching
+about programming methodology. It was
+hard and chalanging at beggining, but
+soon it began to become clearer, and
+it was easyer after.
+  HTML and CSS was next I learnd and then
+Git and Github. And then SQL, MySQL whitch
+was a bit 
