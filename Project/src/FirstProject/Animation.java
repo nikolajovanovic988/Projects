@@ -7,10 +7,10 @@ import javax.swing.Timer;
 
 public class Animation extends JPanel implements ActionListener {
 	
-	public Walker walker;
-	public Setup setup;
+	private Walker walker;
+	private Setup setup;
 	private Timer timer;
-	public Frame frame;
+	private Frame frame;
 	private int move  = 0;
 	private boolean clickToStart = true; // for Label "Click to start"
 	private String clickToStartString = "Click to start";
@@ -51,6 +51,7 @@ public class Animation extends JPanel implements ActionListener {
 			frame = new Frame();
 			setup = new Setup();
 			walker.raisingLeg = 15;
+			repaint();
 		}
 		
 		setup.paintComponent(g);

@@ -414,7 +414,7 @@ public class MySQL_Project extends JPanel implements ActionListener {
 				
 				conn = new Communication (IP, username, pass);
 				
-				if (conn.isconnected) {
+				if (conn.isConnected()) {
 					
 					JOptionPane.showMessageDialog( null, "Connected");
 					
@@ -513,7 +513,7 @@ public class MySQL_Project extends JPanel implements ActionListener {
 				}
 			}
 			
-		// Create/delete database, table, column, row	
+		// Create/delete database, table, column, row. Update, Modify
 		} else if (e.getSource() == createDB || e.getSource() == deleteDB 
 				|| e.getSource() == createTable || e.getSource() == deleteTable
 				|| e.getSource() == drop || e.getSource() == add || e.getSource() == deleteRow
@@ -582,142 +582,7 @@ public class MySQL_Project extends JPanel implements ActionListener {
 				
 			}
 		}
-		// Create new database table, and show all database tables in table	
-		/*
-		} else if (e.getSource() == createTable) {
-			
-			if (databaseField.getText().equals("") || tableField.getText().equals("")) {
-				JOptionPane.showMessageDialog( null, "Your database field or table field is empty");
-			} else if (tableList.contains(tableField.getText())) {
-				JOptionPane.showMessageDialog( null, "Table with name " + tableField.getText() + " already exists");
-			} else {
-				conn.createTable(tableField.getText(), databaseField.getText());
-				JOptionPane.showMessageDialog( null, "You have created table: " + tableField.getText());
-			}
-			
-			tableList = conn.getArrayTableList(databaseField.getText());
-			
-			setTable(conn.getTableList(tableList, columnTables.length), columnTables); // print table on right panel
-			
-		// Delete a database table, and show all database tables in table	
-		} else if (e.getSource() == deleteTable) {
-			
-			if (databaseField.getText().equals("") || tableField.getText().equals("")) {
-				JOptionPane.showMessageDialog( null, "Your database field or table field is empty");
-			} else if (!tableList.contains(tableField.getText())) {
-				JOptionPane.showMessageDialog( null, "Table with name " + tableField.getText() + " does not exist");
-			} else {
-				conn.deleteTable(tableField.getText(), databaseField.getText());
-				JOptionPane.showMessageDialog( null, "You have deleted table: " + tableField.getText());
-			}
-			
-			tableList = conn.getArrayTableList(databaseField.getText());
-			setTable(conn.getTableList(tableList, columnTables.length), columnTables); // print table on right panel
-			
-		}
-		*/  
-		//TABLE COLUMNS
-		// Add column
-		/*
-		 if (e.getSource() == add) {
-			 
-			 if (databaseField.getText().equals("") || tableField.getText().equals("")) {
-				JOptionPane.showMessageDialog( null, "Your database field or table field is empty");
-			} else if (!databaseList.contains(databaseField.getText())) {
-				JOptionPane.showMessageDialog( null, "The database name does not exist");
-			} else if (!tableList.contains(tableField.getText())) {
-				JOptionPane.showMessageDialog( null, "The table name does not exist");
-			} else {
-				conn.addColumn(tableField.getText(), databaseField.getText(), columnField.getText(), dataTypeAdd.getSelectedItem().toString());
-				JOptionPane.showMessageDialog( null, "You have added a new column : " + columnField.getText());
-			
-				column = conn.getTableColumnList(tableField.getText(), databaseField.getText());
-				row = conn.getTableRowList(tableField.getText(), databaseField.getText(), column);
-				setTable(row, column); // print table on right panel
-				
-			}
-			
-		// Delete column
-		} else if (e.getSource() == drop) {
-			
-			if (column == null) {
-				JOptionPane.showMessageDialog( null, "Your database field or table field is empty");
-				return;
-			}
-			
-			ArrayList<String> ar = new ArrayList<>(Arrays.asList(column)); 
-			
-			if (databaseField.getText().equals("") || tableField.getText().equals("")) {
-				JOptionPane.showMessageDialog( null, "Your database field or table field is empty");
-			} else if (!ar.contains(columnField.getText())) {
-				JOptionPane.showMessageDialog( null, "Your table dont have column: "+columnField.getText());
-			} else if (!databaseList.contains(databaseField.getText())) {
-				JOptionPane.showMessageDialog( null, "The database name does not exist");
-			} else if (!tableList.contains(tableField.getText())) {
-				JOptionPane.showMessageDialog( null, "The table name does not exist");
-			} else {
-				conn.deleteColumn(tableField.getText(), databaseField.getText(), columnField.getText());
-				JOptionPane.showMessageDialog( null, "You have deleted a new column : " + columnField.getText());
-			
-				column = conn.getTableColumnList(tableField.getText(), databaseField.getText());
-				row = conn.getTableRowList(tableField.getText(), databaseField.getText(), column);
-				setTable(row, column); // print table on right panel
-				
-			}
 		
-		}
-		
-		 // Modify column
-		if (e.getSource() == modify) {
-			
-			if (column == null) {
-				JOptionPane.showMessageDialog( null, "Your database field or table field is empty");
-				return;
-			}
-			
-			ArrayList<String> ar = new ArrayList<>(Arrays.asList(column)); 
-			
-			if (databaseField.getText().equals("") || tableField.getText().equals("")) {
-				JOptionPane.showMessageDialog( null, "Your database field or table field is empty");
-			} else if (!ar.contains(modifyField.getText())) {
-				JOptionPane.showMessageDialog( null, "Your table dont have column: "+ modifyField.getText());
-			} else if (!databaseList.contains(databaseField.getText())) {
-				JOptionPane.showMessageDialog( null, "The database name does not exist");
-			} else if (!tableList.contains(tableField.getText())) {
-				JOptionPane.showMessageDialog( null, "The table name does not exist");
-			} else {
-				conn.modify(tableField.getText(), databaseField.getText(), modifyField.getText(), modifyFieldNew.getText(), dataTypeModify.getSelectedItem().toString());
-			
-				column = conn.getTableColumnList(tableField.getText(), databaseField.getText());
-				row = conn.getTableRowList(tableField.getText(), databaseField.getText(), column);
-				setTable(row, column); // print table on right panel
-				
-			}
-			
-		}
-
-		// DATA MANIPULATION
-		// Update data
-		if (e.getSource() == update) {
-			
-			
-			if (databaseField.getText().equals("") || tableField.getText().equals("")) {
-				JOptionPane.showMessageDialog( null, "Your database field or table field is empty");
-			} else if (!databaseList.contains(databaseField.getText())) {
-				JOptionPane.showMessageDialog( null, "The database name does not exist");
-			} else if (!tableList.contains(tableField.getText())) {
-				JOptionPane.showMessageDialog( null, "The table name does not exist");
-			} else {
-				conn.update(tableField.getText(), databaseField.getText(), columnNameUpdate.getText(), columnValue.getText()
-						, conditionNameUpdate.getText(), conditionValue.getText(),
-						columnNameUpdate.getText(), columnValue.getText()
-						, conditionNameUpdate.getText(), conditionValue.getText());
-				
-				column = conn.getTableColumnList(tableField.getText(), databaseField.getText());
-				row = conn.getTableRowList(tableField.getText(), databaseField.getText(), column);
-				setTable(row, column); // print table on right panel
-			}
-		*/
 		// Insert new data row
 		if (e.getSource() == insert) {
 			
@@ -762,27 +627,6 @@ public class MySQL_Project extends JPanel implements ActionListener {
 				setTable(row, column); // print table on right panel
 			}
 		}
-		// Delete data row
-			/*
-		} else if (e.getSource() == deleteRow) {
-			
-			if (databaseField.getText().equals("") || tableField.getText().equals("")) {
-				JOptionPane.showMessageDialog( null, "Your database field or table field is empty");
-			} else if (!databaseList.contains(databaseField.getText())) {
-				JOptionPane.showMessageDialog( null, "The database name does not exist");
-			} else if (!tableList.contains(tableField.getText())) {
-				JOptionPane.showMessageDialog( null, "Table name does not exist");
-			} else {
-				
-				conn.deleteRow(tableField.getText(), databaseField.getText(), rowCondition.getText(), rowValue.getText());
-				
-				column = conn.getTableColumnList(tableField.getText(), databaseField.getText());
-				row = conn.getTableRowList(tableField.getText(), databaseField.getText(), column);
-				setTable(row, column); // print table on right panel
-			}
-			
-		}
-		*/
 		
 		// SELECT
 		//Get selected columns, and show in table

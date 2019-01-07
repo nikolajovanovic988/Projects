@@ -37,7 +37,7 @@ public class Frame {
 	}
 	
 	// Read file where is letter
-	public void readFromFile() {
+	private void readFromFile() {
 		
 		try {
 			rd = new BufferedReader(new FileReader("Propratno pismo.txt"));
@@ -87,7 +87,7 @@ public class Frame {
 	}
 	
 	// Paint frame where will be my cover letter
-	public void drawFame(Graphics g) {
+	private void drawFame(Graphics g) {
 		g.fillRoundRect(width/2 + 60, height/2 - 170, 320, 20,10,10); // top
 		g.fillRoundRect(width/2 + 60, height/2 - 170, 20, 180,10,10); // left
 		g.fillRoundRect(width/2 + 60, height/2 -10, 320, 20,10,10); // bottom

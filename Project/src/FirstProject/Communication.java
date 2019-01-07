@@ -6,10 +6,10 @@ import java.util.*;
 import javax.swing.JOptionPane;
 
 public class Communication {
-	public Connection conn;
-	public ArrayList<String> databaseList;
-	public ArrayList<String> tableList;
-	public boolean isconnected = false;
+	private Connection conn;
+	private ArrayList<String> databaseList;
+	private ArrayList<String> tableList;
+	private boolean isconnected = false;
 	
 	// Do connect...
 	public Communication(String IP, String username, String pass) throws Exception{
@@ -18,8 +18,6 @@ public class Communication {
 			
 			String driver = "com.mysql.cj.jdbc.Driver"; // it works without this
 			String URL = "jdbc:mysql://"+IP+":3306/?useSSL=false";
-			//String username = "root";
-			//String pass = "";
 			
 			Class.forName(driver); // it works without this
 			
@@ -137,11 +135,10 @@ public class Communication {
 		
 	}
 	
-	
-	
-	
-	
-	
+	// to check if connection is made 
+	public boolean isConnected() {
+		return isconnected;
+	}
 	
 	// Return database list
 	// FIX (return only non system databases)
@@ -168,10 +165,6 @@ public class Communication {
 		return null;
 	}
 	
-	public boolean isConnected() {
-		return isconnected;
-	}
-	
 	// Return table list
 	public ArrayList<String> getArrayTableList(String databasename) {
 			
@@ -194,64 +187,6 @@ public class Communication {
 		return null;
 	}
 	
-	// Create new table in selected database
-	/*
-	public void createTable(String tableName, String databaseName) {
-		
-		try {
-			
-			PreparedStatement statement = conn.prepareStatement("CREATE TABLE "+databaseName+"."+tableName+"(id int)");
-			statement.executeUpdate();
-			
-			statement.close();
-			
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog( null, e.getMessage());
-		}
-	}
-	
-	// Delete new table in selected database
-	public void deleteTable(String tableName, String databaseName) {
-		
-		try {
-			PreparedStatement statement = conn.prepareStatement("DROP TABLE "+databaseName+"."+tableName);
-			statement.executeUpdate();
-			
-			statement.close();
-			
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog( null, e.getMessage());
-		}
-	}
-	*/
-	/*
-	// Add a column in selected table
-	public void addColumn(String tableName, String databaseName, String name, String datatype) {
-		
-		try {
-			PreparedStatement statement = conn.prepareStatement("ALTER TABLE "+ databaseName + "."+ tableName +" ADD "+ name +" "+ datatype);
-			statement.executeUpdate();
-			
-			statement.close();
-			
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog( null, e.getMessage());
-		}
-	}
-	
-	// Delete column i selected table
-	public void deleteColumn(String tableName, String databaseName, String name) {
-		try {      
-			PreparedStatement statement = conn.prepareStatement("ALTER TABLE "+ databaseName + "."+ tableName +" DROP COLUMN "+ name);
-			statement.executeUpdate();
-			
-			statement.close();
-			
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog( null, e.getMessage());
-		}
-	}
-	*/
 	// return selected table row
 	public String[] getTableColumnList(String tableName, String databaseName) {
 			
@@ -357,89 +292,5 @@ public class Communication {
 			
 		return num;
 	}
-	
-	// Modify table column
-	/*
-	public void modify(String tableName, String databaseName, String name, String newName, String datatype ) {
-		
-		try {
-			
-			PreparedStatement statement;
-			
-			if (!newName.equals("")) {
-				
-				statement = conn.prepareStatement("ALTER TABLE "+ databaseName +"."+ tableName +" CHANGE "+ name +" "+ newName +" "+ datatype);
-				statement.executeUpdate();
-				JOptionPane.showMessageDialog( null, "Column name "+ name +" has changed to "+ newName);
-				
-			} else {
-				
-				statement = conn.prepareStatement("ALTER TABLE "+ databaseName +"."+ tableName +" MODIFY COLUMN "+ name +" "+ datatype);
-				statement.executeUpdate();
-				JOptionPane.showMessageDialog( null, "Column datatype has changed to: "+ datatype);
-			}
-				
-			
-			statement.close();
-			
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog( null, e.getMessage());
-		}
-		
-	}
-	
-	
-	// Update, change value
-	public void update(String tableName, String databaseName, String columnName, String columnValue, String conditionColumnName, String conditionValue) {
-		
-		try {
-			
-			PreparedStatement statement = conn.prepareStatement("UPDATE "+ databaseName +"."+ tableName +" SET "+ columnName +
-					" = '" + columnValue +"' WHERE "+ conditionColumnName +" = "+ conditionValue);
-			statement.executeUpdate();
-			
-			statement.close();
-			
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog( null, e.getMessage());
-		}
-		
-	}
-	
-	// Insert into
-	
-	public void insertInto(String tableName, String databaseName, String column, String value) {
-		
-		try {
-			
-			PreparedStatement statement = conn.prepareStatement("INSERT INTO "+ databaseName +"."+ tableName +" ("+ column +
-					") VALUES ('"+ value +"')");
-			statement.executeUpdate();
-			
-			statement.close();
-			
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog( null, e.getMessage());
-		}
-		
-		
-	}
-	
-	// Delete row
-	public void deleteRow(String tableName, String databaseName, String condition, String conditionValue) {
-		
-		try {
-			
-			PreparedStatement statement = conn.prepareStatement("DELETE FROM "+ databaseName +"."+ tableName +" WHERE "
-					+ condition +"='"+ conditionValue +"'");
-			statement.executeUpdate();
-			
-			statement.close();
-			
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog( null, e.getMessage());
-		}
-		
-	}
-	*/
+
 }

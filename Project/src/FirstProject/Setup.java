@@ -7,7 +7,7 @@ public class Setup {
 
 	public int height;
 	public int width;
-	public int[] frameCords = new int[4];
+	private int[] frameCords = new int[4];
 	private int squareWidth;
 	private int squareHeight; 
 	
@@ -24,13 +24,13 @@ public class Setup {
 	
 	
 	// 
-	public void background (Graphics g) {
+	private void background (Graphics g) {
 		g.drawLine(0, height/2, width, height/2);
 		g.setColor(Color.CYAN);
 		g.fillRect(0, height/2, width, height);
 	}
 	
-	public void floor(Graphics g) {
+	private void floor(Graphics g) {
 		squareWidth = width / 20;
 		squareHeight = (height / 2) / 5;
 		g.setColor(Color.DARK_GRAY);
@@ -52,7 +52,7 @@ public class Setup {
 	}
 	
 	// Draw chair in middle of room
-	public void chair (Graphics g) {
+	private void chair (Graphics g) {
 		
 		// Back part
 		g.setColor(new Color(140,101,41));

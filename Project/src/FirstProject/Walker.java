@@ -37,7 +37,7 @@ public class Walker {
 		
 	}
 	
-	public void head(Graphics g) {
+	private void head(Graphics g) {
 		
 		int headTurning = 0;
 		if (turning < 20) {
@@ -223,21 +223,21 @@ public class Walker {
 		
 	}
 	
-	public void leftEye(int startX, int startY, Graphics g, int headTurning) {
+	private void leftEye(int startX, int startY, Graphics g, int headTurning) {
 		
 		g.drawLine(startX - headTurning / 2 - headTurning / 10, startY-3, startX - 4 - headTurning / 2 - headTurning / 10, startY-3);
 		
 		g.drawOval(startX - 4 - headTurning / 2 - headTurning / 10, startY - 2, 3, 2); 
 	}
 	
-	public void rightEye(int startX, int startY, Graphics g, int headTurning) {
+	private void rightEye(int startX, int startY, Graphics g, int headTurning) {
 		
 		g.drawLine(startX - headTurning / 2 - headTurning / 10, startY-3, startX - 4 - headTurning / 2 - headTurning / 10, startY-3);
 		
 		g.drawOval(startX - 4 - headTurning / 2 - headTurning / 10, startY - 2, 3, 2); 
 	}
 	
-	public void body(Graphics g) {
+	private void body(Graphics g) {
 		
 		int bodyTurning = 0;
 		if (turning < 20) {
@@ -292,7 +292,7 @@ public class Walker {
 		
 	}
 	
-	public void leftHand (int firstX, int firstY, Graphics g) {
+	private void leftHand (int firstX, int firstY, Graphics g) {
 		
 		int fingerTurning = 0;
 		if (turning < 20) {
@@ -349,7 +349,7 @@ public class Walker {
 		g.drawPolygon(x,y,19);
 	}
 	
-	public void rightHand (int firstX, int firstY, Graphics g) {
+	private void rightHand (int firstX, int firstY, Graphics g) {
 		
 		int fingerTurning = 0;
 		if (turning < 20) {
@@ -409,7 +409,7 @@ public class Walker {
 		
 	}
 	
-	public void leftArm(Graphics g) {
+	private void leftArm(Graphics g) {
 		
 		int armTurning = 0;
 		if (turning < 20) {
@@ -458,7 +458,7 @@ public class Walker {
 		rightHand (x[8], y[8] ,g);
 	}
 	
-	public void rightArm(Graphics g) {
+	private void rightArm(Graphics g) {
 		
 		int armTurning = 0;
 		if (turning < 20) {
@@ -506,7 +506,7 @@ public class Walker {
 		leftHand(x[8], y[8], g);
 	}
 	
-	public void legs(Graphics g) {
+	private void legs(Graphics g) {
 		int legTurning = 0;
 		if (turning < 20) {
 			legTurning = turning;
@@ -617,7 +617,7 @@ public class Walker {
 		}
 	}
 	
-	public void feet(int firstX, int firstY, Graphics g, int legTurning) {
+	private void feet(int firstX, int firstY, Graphics g, int legTurning) {
 		int [] x = new int [10];
 		int [] y = new int [10];
 		
