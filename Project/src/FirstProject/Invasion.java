@@ -17,7 +17,7 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 	private Image image;
 	
 	private int buttonHeight = 20;
-	private int buttonWidth = 100;
+	private int buttonWidth = 120;
 	private Gameplay gameplay;
 	
 	
@@ -105,26 +105,20 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 			System.exit(0);
 		}
 		
-		if (gameplay != null) {
-			
-			if(gameplay.missle == false) {
-				gameplay.missleY -= 5;
-				if (gameplay.missleY < 0) {
-					gameplay.missle = true;
-				}
-			}
-		}
-		
 		repaint();
 	}
 
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();
         if (code == KeyEvent.VK_LEFT) {
-              gameplay.playerShipX = gameplay.playerShipX - 3;
+        	if ((gameplay.playerShipX - gameplay.ship.shipWidth/2) > 0) {
+        		gameplay.playerShipX = gameplay.playerShipX - 3;
+        	}
         }
         else if (code == KeyEvent.VK_RIGHT) {
-        	gameplay.playerShipX = gameplay.playerShipX + 3;
+        	if ((gameplay.playerShipX + gameplay.ship.shipWidth/2) < getWidth()) {
+        		gameplay.playerShipX = gameplay.playerShipX + 3;
+        	}
         }
 	}
 
