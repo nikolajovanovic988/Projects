@@ -25,6 +25,7 @@ public class Gameplay extends JPanel implements ActionListener {
 	public int playerShipY;
 	public boolean LRBorderCheck = true;
 	public int scale = 0;
+	private int explosionFrameNumber = 0;
 	
 	public Gameplay (int width, int height) {
 		this.height = height;
@@ -48,7 +49,10 @@ public class Gameplay extends JPanel implements ActionListener {
 		} else if (!LRBorderCheck) {
 			scale--;
 		}
+		
+		missle(g);
 		drawShips(g);
+		
 	}
 	
 	public void drawShips( Graphics g) {
@@ -62,7 +66,10 @@ public class Gameplay extends JPanel implements ActionListener {
 					x = scale + j*spaceBetweenShips + leftRightDistance + j*ship.shipWidth;
 					y = i*spaceBetweenShips + topDistance +(int)(ship.shipHeight * 0.35) + i * ship.shipHeight;
 					ship.drawShip(g, x, y);
-					
+						if (checkIfHitt(x,y)) {
+							shipExistence[i][j] = true;
+							explosion(x, y);
+						}
 					if (x <= 0) {
 						LRBorderCheck = true;
 					} else if (x + ship.shipWidth >= width) {
@@ -72,6 +79,12 @@ public class Gameplay extends JPanel implements ActionListener {
 			}
 		}
 		
+		explosionFrameNumber ++;
+		
+		ship.drawPlayerShip(g,  playerShipX - ship.shipWidth/2 , playerShipY);
+	}
+	
+	public void missle(Graphics g) {
 		if (missle) {
 			g.setColor(Color.WHITE);
 			
@@ -87,29 +100,24 @@ public class Gameplay extends JPanel implements ActionListener {
 				missle = true;
 			}
 		}
-		ship.drawPlayerShip(g,  playerShipX - ship.shipWidth/2 , playerShipY);
 	}
 	
-	public void newGame() {
+	public boolean checkIfHitt(int x, int y) {
+		
+		if(missleX >= x & missleX <= x + ship.shipWidth & missleY == y) {
+			missle = true;
+			return true;
+		}
+		
+		return false;
+	}
+	
+	public void explosion(int x, int y) {
 		
 	}
 	
-	public void loadGame() {
-		
-	}
-	
-	public void highScore() {
-		
-	}
-	
-	public void credits() {
-		
-	}
-
-	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		repaint();
-		
 	}
 
 }

@@ -96,11 +96,11 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 			repaint();
 			
 		} else if (e.getSource() == loadGame) {
-			gameplay.loadGame();
+			
 		} else if (e.getSource() == highScore) {
-			gameplay.highScore();
+			
 		} else if (e.getSource() == credits) {
-			gameplay.credits();
+			
 		} else if (e.getSource() == exit) {
 			System.exit(0);
 		}
