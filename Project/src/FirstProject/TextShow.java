@@ -7,8 +7,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-public class Frame {
-	
+public class TextShow {
+
 	private BufferedReader rd;
 	private ArrayList<String> letter = new ArrayList<String>();
 	private boolean[] checkLetter; // to check if line is ready to be printed;
@@ -24,23 +24,30 @@ public class Frame {
 	public int height;
 	public int width;
 	
+	private int fontSize;
+	private String txtName;
+	private Color color;
+	
 	// Constructor, it will just read file that will be shown in frame.
-	public Frame() {
+	public TextShow(String txtName) {
+		this.txtName = txtName;
 		readFromFile();
 	}
 	
-	public void setCords() {
-		startX = width/2 + 80;
-		startY = height/2 + 10;
-		// endX = width/2 + 90;
-		endY = height/2 - 170;
+	// Set from where will text start and where it ends
+	public void setCords(int startX, int startY, int endY, int fontSize, Color color) {
+		this.startX = startX;
+		this.startY = startY;
+		this.endY = endY;
+		this.fontSize = fontSize;
+		this.color = color;
 	}
 	
 	// Read file where is letter
 	private void readFromFile() {
 		
 		try {
-			rd = new BufferedReader(new FileReader("Propratno pismo.txt"));
+			rd = new BufferedReader(new FileReader(txtName));
 			
 			while (true) {
 				String str = rd.readLine();
@@ -57,11 +64,10 @@ public class Frame {
 	
 	public void paintComponent(Graphics g) {
 		printCheck();
-		g.setFont(new Font("Arial",Font.PLAIN, 16));
-		g.setColor(Color.BLACK);
+		g.setFont(new Font("Arial",Font.PLAIN, fontSize));
+		g.setColor(color);
 		print(g);
-		g.setColor(new Color(255,254,166));
-		drawFame(g);
+		
 	}
 	
 	// Check if line is ready to be printed, and set it true if it is. "15" pixels distance will be from two lines
@@ -84,16 +90,5 @@ public class Frame {
 				}
 			}
 		}
-	}
-	
-	// Paint frame where will be my cover letter
-	private void drawFame(Graphics g) {
-		g.fillRoundRect(width/2 + 60, height/2 - 170, 320, 20,10,10); // top
-		g.fillRoundRect(width/2 + 60, height/2 - 170, 20, 180,10,10); // left
-		g.fillRoundRect(width/2 + 60, height/2 -10, 320, 20,10,10); // bottom
-		g.fillRoundRect(width/2 + 370, height/2 - 170, 20, 180,10,10); // right
-		g.setColor(Color.BLACK);
-		g.drawRoundRect(width/2 + 60, height/2 - 170, 330, 180, 10 ,10); // inside
-		g.drawRoundRect(width/2 + 80, height/2 - 150, 290, 140, 10 ,10); // outside
 	}
 }

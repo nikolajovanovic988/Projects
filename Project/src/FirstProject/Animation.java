@@ -10,7 +10,7 @@ public class Animation extends JPanel implements ActionListener {
 	private Walker walker;
 	private Setup setup;
 	private Timer timer;
-	private Frame frame;
+	private TextShow frame;
 	private int move  = 0;
 	private boolean clickToStart = true; // for Label "Click to start"
 	private String clickToStartString = "Click to start";
@@ -48,28 +48,30 @@ public class Animation extends JPanel implements ActionListener {
 		if (timer == null || walker == null || frame == null || setup == null) {
 			timer = new Timer(12, this);
 			walker = new Walker();
-			frame = new Frame();
+			frame = new TextShow("Propratno pismo.txt");
 			setup = new Setup();
+			
 			walker.raisingLeg = 15;
+			walker.height = getHeight();
+			walker.width = getWidth();	
+			setup.height = getHeight();
+			setup.width = getWidth();
+			frame.height = getHeight();
+			frame.width = getWidth();
+			frame.setCords(getWidth()/2 + 80, getHeight()/2 + 10, getHeight()/2 - 170, 16, Color.BLACK);
 			repaint();
 		}
 		
+		frame.paintComponent(g);
 		setup.paintComponent(g);
 		walker.paintComponent(g);
 		
-		frame.setCords();
-		frame.paintComponent(g);
+		
 		
 		if ( clickToStart == true) {
+			g.setColor(Color.BLACK);
 			g.drawString(clickToStartString, getWidth()/2 - 45, getHeight() - 20);
 		}
-		
-		walker.height = getHeight();
-		walker.width = getWidth();	
-		setup.height = getHeight();
-		setup.width = getWidth();
-		frame.height = getHeight();
-		frame.width = getWidth();
 		
 		if (walker.start){
 			walker.kneeX = walker.startPosition + 25;

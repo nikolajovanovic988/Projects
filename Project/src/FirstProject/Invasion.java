@@ -19,7 +19,7 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 	private int buttonHeight = 20;
 	private int buttonWidth = 120;
 	private Gameplay gameplay;
-	
+	private TextShow textShow;
 	
 	public Timer tm = new Timer(5, this);
 	
@@ -69,6 +69,9 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 		
 		if (gameplay != null) {
 			gameplay.paintComponenet(g);
+		} else if (textShow != null) {
+			textShow.move++;
+			textShow.paintComponent(g);
 		}
 	}
 	
@@ -100,7 +103,11 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 		} else if (e.getSource() == highScore) {
 			
 		} else if (e.getSource() == credits) {
-			
+			this.removeAll();
+			if (textShow == null) {
+				textShow = new TextShow("Credits.txt");
+				textShow.setCords(30, getHeight() + 10, -10, 15, Color.WHITE);
+			}
 		} else if (e.getSource() == exit) {
 			System.exit(0);
 		}
@@ -111,12 +118,12 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();
         if (code == KeyEvent.VK_LEFT) {
-        	if ((gameplay.playerShipX - gameplay.ship.shipWidth/2) > 0) {
+        	if ((gameplay.playerShipX - gameplay.palyerShip.shipWidth/2) > 0) {
         		gameplay.playerShipX = gameplay.playerShipX - 3;
         	}
         }
         else if (code == KeyEvent.VK_RIGHT) {
-        	if ((gameplay.playerShipX + gameplay.ship.shipWidth/2) < getWidth()) {
+        	if ((gameplay.playerShipX + gameplay.palyerShip.shipWidth/2) < getWidth()) {
         		gameplay.playerShipX = gameplay.playerShipX + 3;
         	}
         }

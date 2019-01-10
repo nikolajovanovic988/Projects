@@ -19,6 +19,7 @@ public class Setup {
 		//background(g);
 		//floor(g);
 		chair(g);
+		drawFame(g);
 	
 	}
 	
@@ -119,4 +120,14 @@ public class Setup {
 		g.drawPolygon(x, y, 4); // width of sitting board
 	}
 	
+	private void drawFame(Graphics g) {
+		g.setColor(new Color(255,254,166));
+		g.fillRoundRect(width/2 + 60, height/2 - 170, 320, 20,10,10); // top
+		g.fillRoundRect(width/2 + 60, height/2 - 170, 20, 180,10,10); // left
+		g.fillRoundRect(width/2 + 60, height/2 -10, 320, 20,10,10); // bottom
+		g.fillRoundRect(width/2 + 370, height/2 - 170, 20, 180,10,10); // right
+		g.setColor(Color.BLACK);
+		g.drawRoundRect(width/2 + 60, height/2 - 170, 330, 180, 10 ,10); // inside
+		g.drawRoundRect(width/2 + 80, height/2 - 150, 290, 140, 10 ,10); // outside
+	}
 }

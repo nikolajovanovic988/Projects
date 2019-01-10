@@ -6,26 +6,46 @@ public class Ship {
 	
 	public int shipWidth;
 	public int shipHeight;
+	private boolean status = true;
+	private boolean exploading = false;
 	
 	public Ship () {
 		
 	}
 	
-	public void paintComponenet(Graphics g) {
-		/*
-		shipWidth = ((width - (leftRightDistance*2)) - (spaceBetweenShips*(numOfShips-1))) / numOfShips;
-		System.out.print(shipWidth);
-		for (int i = 0; i < shipExistence.length; i++) {
-			for (int j = 0; j < shipExistence[0].length; j++) {
-				
-				int x = j*spaceBetweenShips + leftRightDistance + j*shipWidth;
-				int y = i*spaceBetweenShips + topDistance +(int)(shipHeight * 0.35) + i * shipHeight;
-				drawShip(g, x, y);
-				
-			}
-		}
-		*/
-		//drawPlayerShip(g, width/2 - shipWidth/2 , height - botomDistance - (int)(shipHeight * 0.35));
+	public void setShipWidth(int shipWidth) {
+		this.shipWidth = shipWidth;
+	}
+	
+	public int getShipWidth() {
+		return shipWidth;
+	}
+	
+	public void setShipHeight(int shipHeight) {
+		this.shipHeight = shipHeight;
+	}
+	
+	public int getShipHeight() {
+		return shipHeight;
+	}
+	
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	
+	public boolean getStatus() {
+		return status;
+	}
+	
+	public boolean getExploading() {
+		return exploading;
+	}
+	public void setExploading(boolean exploading) {
+		this.exploading = exploading;
+	}
+	
+	public void  exploading (Graphics g, int x, int y, int explosionFrameNumber) {
+		
 	}
 	
 	// Draw ship faced down.

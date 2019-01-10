@@ -9,7 +9,7 @@ public class Gameplay extends JPanel implements ActionListener {
 
 	private int width;
 	private int height;
-	public Ship ship;
+	public Ship palyerShip;
 	public boolean missle = true; // to check if missile is ready to be fired again
 	public int missleX;
 	public int missleY;
@@ -19,7 +19,8 @@ public class Gameplay extends JPanel implements ActionListener {
 	private int botomDistance = 10;
 	private int spaceBetweenShips = 20;
 	private int numOfShips = 10;
-	private boolean[][] shipExistence = new boolean[4][numOfShips];
+	private Ship[][] ships = new Ship[4][numOfShips];
+	private boolean setup = false;
 	
 	public int playerShipX;
 	public int playerShipY;
@@ -38,12 +39,25 @@ public class Gameplay extends JPanel implements ActionListener {
 	public void paintComponenet(Graphics g) {
 		super.paintComponent(g);
 		
+		if (setup == false) {
+			for (int i = 0; i < ships.length; i++) {
+				for (int j = 0; j < ships[0].length; j++) {
+					ships[i][j] = new Ship();
+					ships[i][j].setShipWidth(((width - (leftRightDistance*2)) - (spaceBetweenShips*(numOfShips-1))) / numOfShips);
+					ships[i][j].setShipHeight(30);
+				}
+			}
+			setup = true;
+		}
 		
-		if (ship == null) {
-			ship = new Ship();
-			playerShipX = width/2 - ship.shipWidth/2;
+		if (palyerShip == null) {
+			palyerShip = new Ship();
+			palyerShip.setShipWidth(((width - (leftRightDistance*2)) - (spaceBetweenShips*(numOfShips-1))) / numOfShips);
+			palyerShip.setShipHeight(30);
+			playerShipX = width/2 - palyerShip.getShipWidth()/2;
 			playerShipY = height - botomDistance - 10;
 		}
+		
 		if (LRBorderCheck) {
 			scale++;
 		} else if (!LRBorderCheck) {
@@ -56,32 +70,42 @@ public class Gameplay extends JPanel implements ActionListener {
 	}
 	
 	public void drawShips( Graphics g) {
-		ship.shipWidth = ((width - (leftRightDistance*2)) - (spaceBetweenShips*(numOfShips-1))) / numOfShips;
-		ship.shipHeight = 30;
 		
-		for (int i = 0; i < shipExistence.length; i++) {
-			for (int j = 0; j < shipExistence[0].length; j++) {
+		for (int i = 0; i < ships.length; i++) {
+			for (int j = 0; j < ships[0].length; j++) {
 				int x,y;
-				if (shipExistence[i][j] == false) {
-					x = scale + j*spaceBetweenShips + leftRightDistance + j*ship.shipWidth;
-					y = i*spaceBetweenShips + topDistance +(int)(ship.shipHeight * 0.35) + i * ship.shipHeight;
-					ship.drawShip(g, x, y);
-						if (checkIfHitt(x,y)) {
-							shipExistence[i][j] = true;
-							explosion(x, y);
-						}
+				x = scale + j*spaceBetweenShips + leftRightDistance + j*ships[i][j].getShipWidth();
+				y = i*spaceBetweenShips + topDistance +(int)(ships[i][j].getShipHeight() * 0.35) + i * ships[i][j].getShipHeight();
+				
+				if (ships[i][j].getStatus() == true) {
+					
+					ships[i][j].drawShip(g, x, y);
+					
+					if (checkIfHitt(x,y)) {
+						ships[i][j].setStatus(false);
+						ships[i][j].setExploading(true);
+					}
 					if (x <= 0) {
 						LRBorderCheck = true;
-					} else if (x + ship.shipWidth >= width) {
+					} else if (x + ships[i][j].shipWidth >= width) {
 						LRBorderCheck = false;
 					}
+				}
+				
+				if (ships[i][j].getExploading() == true) {
+					ships[i][j].exploading(g, x, y, explosionFrameNumber);
+					if (explosionFrameNumber >= 10) {
+						ships[i][j].setExploading(false);
+						explosionFrameNumber = 0;
+					}
+					explosionFrameNumber++;
 				}
 			}
 		}
 		
-		explosionFrameNumber ++;
+		//explosionFrameNumber ++;
 		
-		ship.drawPlayerShip(g,  playerShipX - ship.shipWidth/2 , playerShipY);
+		palyerShip.drawPlayerShip(g,  playerShipX - palyerShip.getShipWidth()/2 , playerShipY);
 	}
 	
 	public void missle(Graphics g) {
@@ -89,7 +113,7 @@ public class Gameplay extends JPanel implements ActionListener {
 			g.setColor(Color.WHITE);
 			
 			missleX = playerShipX - 3;
-			missleY = playerShipY - (int)(ship.shipHeight * 0.65);
+			missleY = playerShipY - (int)(palyerShip.getShipHeight() * 0.65);
 			
 			g.fillRect(missleX , missleY, 4	, 6);
 		} else if (missle == false) {
@@ -104,16 +128,12 @@ public class Gameplay extends JPanel implements ActionListener {
 	
 	public boolean checkIfHitt(int x, int y) {
 		
-		if(missleX >= x & missleX <= x + ship.shipWidth & missleY == y) {
+		if(missleX >= x & missleX <= x + palyerShip.getShipWidth() & missleY == y) {
 			missle = true;
 			return true;
 		}
 		
 		return false;
-	}
-	
-	public void explosion(int x, int y) {
-		
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
