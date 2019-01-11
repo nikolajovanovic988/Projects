@@ -15,7 +15,7 @@ public class Main extends JFrame{
 	public static MySQL_Project database;
 	public static boolean checkIfLocalSelected = false;
 	
-	public static JMenuItem SQL, INVASION;
+	public static JMenuItem SQL, INVASION, ANIMATION;
 	
 	public static void main(String[] args) {
 		window = new JFrame ("My First Project");
@@ -36,6 +36,18 @@ public class Main extends JFrame{
 		
 		JMenu menu = new JMenu("Projects");
 		menubar.add(menu);
+		
+		ANIMATION = new JMenuItem ("Introduction");
+		ANIMATION.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				animation = new Animation();
+				checkIfLocalSelected = true;
+				window.getContentPane().removeAll();
+				window.setContentPane(animation);
+				window.revalidate();
+			}
+			
+		});
 		
 		SQL = new JMenuItem ("MySQL Project");
 		SQL.addActionListener(new ActionListener() {
@@ -61,7 +73,9 @@ public class Main extends JFrame{
 			
 		});
 		
+		menu.add(ANIMATION);
 		menu.add(SQL);
 		menu.add(INVASION);
+		
 	}
 }

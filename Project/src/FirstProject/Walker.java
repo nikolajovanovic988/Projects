@@ -527,7 +527,7 @@ public class Walker {
 			int [] y = new int [6];
 			
 			// first leg is negative
-			x[0] = startPosition + 5;
+			x[0] = startPosition;
 			y[0] = height/2 + 25 + legSitting;
 			x[1] = x[0] + 20;
 			y[1] = y[0];
@@ -548,7 +548,7 @@ public class Walker {
 			feet(x[4], y[4], g, legTurning);
 			
 			// second leg is negative
-			x[0] = startPosition + 5 - legTurning;
+			x[0] = startPosition + 8 - legTurning;
 			y[0] = height/2 + 25 + legSitting;
 			x[1] = x[0] + 20;
 			y[1] = y[0];

@@ -7,7 +7,7 @@ public class Ship {
 	public int shipWidth;
 	public int shipHeight;
 	private boolean status = true;
-	private boolean exploading = false;
+	private boolean explosion = false;
 	
 	public Ship () {
 		
@@ -29,23 +29,33 @@ public class Ship {
 		return shipHeight;
 	}
 	
+	// setStatus is to set ship to be destroyed
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	
+	// will return false if ship is destroyed
 	public boolean getStatus() {
 		return status;
 	}
-	
-	public boolean getExploading() {
-		return exploading;
+	// return true if explosion is happening
+	public boolean getExplosion() {
+		return explosion;
 	}
-	public void setExploading(boolean exploading) {
-		this.exploading = exploading;
+	public void setExplosion(boolean explosion) {
+		this.explosion = explosion;
 	}
 	
 	public void  exploading (Graphics g, int x, int y, int explosionFrameNumber) {
-		
+		g.setColor(Color.YELLOW);
+        g.fillOval(x - 4*explosionFrameNumber,
+                y - 2*explosionFrameNumber,
+                8*explosionFrameNumber,
+                4*explosionFrameNumber);
+        g.setColor(Color.RED);
+        g.fillOval(x - 2*explosionFrameNumber,
+                y - explosionFrameNumber/2,
+                4*explosionFrameNumber,
+                explosionFrameNumber);
 	}
 	
 	// Draw ship faced down.
@@ -174,8 +184,8 @@ public class Ship {
 	// Draw ship faced up
 	public void drawPlayerShip(Graphics g, int startX, int startY) {
 		
-		int oneX = (int) (shipWidth * 0.01); // one % of ship width
-		int oneY = (int) (shipHeight * 0.01); // one % of ship height
+		//int oneX = (int) (shipWidth * 0.01); // one % of ship width
+		//int oneY = (int) (shipHeight * 0.01); // one % of ship height
 		
 		
 		int[] x = new int[22];

@@ -83,7 +83,7 @@ public class Gameplay extends JPanel implements ActionListener {
 					
 					if (checkIfHitt(x,y)) {
 						ships[i][j].setStatus(false);
-						ships[i][j].setExploading(true);
+						ships[i][j].setExplosion(true);
 					}
 					if (x <= 0) {
 						LRBorderCheck = true;
@@ -92,10 +92,10 @@ public class Gameplay extends JPanel implements ActionListener {
 					}
 				}
 				
-				if (ships[i][j].getExploading() == true) {
-					ships[i][j].exploading(g, x, y, explosionFrameNumber);
-					if (explosionFrameNumber >= 10) {
-						ships[i][j].setExploading(false);
+				if (ships[i][j].getExplosion() == true) {
+					ships[i][j].exploading(g, x + ships[i][j].getShipWidth()/2, y, explosionFrameNumber);
+					if (explosionFrameNumber >= 8) {
+						ships[i][j].setExplosion(false);
 						explosionFrameNumber = 0;
 					}
 					explosionFrameNumber++;
