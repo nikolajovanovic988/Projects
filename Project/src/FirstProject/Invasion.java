@@ -102,7 +102,7 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 		} else if (e.getSource() == loadGame) {
 			
 		} else if (e.getSource() == highScore) {
-			hScore = new HighScore();
+			hScore = new HighScore("HighScore.txt");
 			
 		} else if (e.getSource() == credits) {
 			this.removeAll();

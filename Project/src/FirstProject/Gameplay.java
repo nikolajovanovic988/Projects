@@ -139,5 +139,11 @@ public class Gameplay extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		repaint();
 	}
+	
+	public String getScore() {
+		String str = "";
+		
+		return str;
+	}
 
 }
