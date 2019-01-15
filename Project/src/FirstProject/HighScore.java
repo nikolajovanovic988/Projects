@@ -8,7 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableColumnModel;
 
-public class HighScore extends TextShow {
+public class HighScore extends TextRD {
 	
 
 	private JTable table;
@@ -17,9 +17,15 @@ public class HighScore extends TextShow {
 	private String[][] data;
 	private ArrayList<String> lines = new ArrayList<String>();
 	
-	
 	public HighScore(String txtName) {
 		super(txtName);
+	}
+	
+	public void setScore(String score) {
+		wrieIntoFile(score);
+	}
+	
+	public void showHighScore() {
 		
 		lines = readFromFile();
 		
@@ -38,12 +44,8 @@ public class HighScore extends TextShow {
 	        else break;
 	    }
 	    
-	    JScrollPane spane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JScrollPane spane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	    JOptionPane.showMessageDialog(null, spane);
-	}
-	
-	public void setScore(String score) {
-		lines.add(score);
 	}
 	
 	private void setTable() {
@@ -81,4 +83,5 @@ public class HighScore extends TextShow {
 			
 		}
 	}
+	
 }

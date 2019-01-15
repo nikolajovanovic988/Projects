@@ -20,16 +20,17 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 	private int buttonWidth = 120;
 	private Gameplay gameplay;
 	private TextShow textShow;
-	private HighScore hScore;
+	private HighScore hScore = new HighScore("HighScore.txt");
 	
-	public Timer tm = new Timer(5, this);
+	private String playerName;
+	
+	private Timer tm = new Timer(5, this);
 	
 	public Invasion() {
 		
 		setLayout(null);
 		setButtons();
 		
-		tm.start();
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
@@ -70,6 +71,19 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 		
 		if (gameplay != null) {
 			gameplay.paintComponenet(g);
+			if (gameplay.gameEnded()) {
+				
+				hScore.setScore(gameplay.getscore() +" "+ playerName);
+				gameplay = null;
+				
+				highScore.setBounds(800/2 - buttonWidth/2, 500/2 - buttonHeight/2, buttonWidth, buttonHeight);
+				
+				tm.stop();
+				
+				setButtons();
+				repaint();
+				
+			}
 		} else if (textShow != null) {
 			textShow.move++;
 			textShow.paintComponent(g);
@@ -93,6 +107,8 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 		
 		if (e.getSource() == newGame) {
 			this.removeAll();
+			tm.start();
+			playerName = JOptionPane.showInputDialog("Enter your name: ");
 			gameplay = new Gameplay (getWidth(), getHeight());
 			//JButton button = new JButton("BUTTON");
 			//button.setBounds(800/2 - buttonWidth/2, 500/2 - buttonHeight/2 - buttonHeight * 2 - 20, buttonWidth, buttonHeight);
@@ -103,7 +119,7 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 			
 		} else if (e.getSource() == highScore) {
 			hScore = new HighScore("HighScore.txt");
-			
+			hScore.showHighScore();
 		} else if (e.getSource() == credits) {
 			this.removeAll();
 			if (textShow == null) {

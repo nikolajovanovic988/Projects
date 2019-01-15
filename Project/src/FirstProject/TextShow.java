@@ -7,9 +7,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-public class TextShow {
+public class TextShow extends TextRD {
 
-	private ArrayList<String> letter = new ArrayList<String>();
+	private ArrayList<String> letter;
 	private boolean[] checkLetter; // to check if line is ready to be printed;
 	private int num = 0; // the num is number of lines that are printing;
 	
@@ -25,12 +25,11 @@ public class TextShow {
 	
 	private int fontSize;
 	private Color color;
-	private String txtName;
 	
 	// Constructor, it will just read file that will be shown in frame.
 	
 	public TextShow(String txtName) {
-		this.txtName = txtName;
+		super (txtName);
 		letter = readFromFile();
 		checkLetter = new boolean[letter.size()];
 		y = new int[letter.size()];
@@ -43,28 +42,6 @@ public class TextShow {
 		this.endY = endY;
 		this.fontSize = fontSize;
 		this.color = color;
-	}
-	
-	// Read file where is letter
-	public ArrayList<String> readFromFile() {
-		
-		BufferedReader rd;
-		ArrayList<String> arr = new ArrayList<String>();
-		
-		try {
-			rd = new BufferedReader(new FileReader(txtName));
-			
-			while (true) {
-				String str = rd.readLine();
-				if (str == null) break;
-				arr.add(str);
-			}
-			rd.close();
-		} catch (Exception e) {
-			System.out.print(e.getMessage());
-		}
-		
-		return arr;
 	}
 	
 	public void paintComponent(Graphics g) {

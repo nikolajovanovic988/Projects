@@ -28,10 +28,13 @@ public class Gameplay extends JPanel implements ActionListener {
 	public int scale = 0;
 	private int explosionFrameNumber = 0;
 	
+	private int score = 10000;
+	private int time = 0;
+	private int missleNum = 0;
+	
 	public Gameplay (int width, int height) {
 		this.height = height;
 		this.width = width;
-				
 		
 	}
 	
@@ -122,6 +125,7 @@ public class Gameplay extends JPanel implements ActionListener {
 			g.fillRect(missleX , missleY, 4	, 6);
 			if (missleY < 0) {
 				missle = true;
+				missleNum++;
 			}
 		}
 	}
@@ -130,6 +134,7 @@ public class Gameplay extends JPanel implements ActionListener {
 		
 		if(missleX >= x & missleX <= x + palyerShip.getShipWidth() & missleY == y) {
 			missle = true;
+			missleNum++;
 			return true;
 		}
 		
@@ -140,10 +145,18 @@ public class Gameplay extends JPanel implements ActionListener {
 		repaint();
 	}
 	
-	public String getScore() {
-		String str = "";
-		
-		return str;
+	public boolean gameEnded() {
+		for (int i = 0; i < ships.length; i++) {
+			for (int j = 0; j < ships[0].length; j++) {
+				if (ships[i][j].getStatus() == true) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
-
+	
+	public String getscore() {
+		return Integer.toString(score - (int)(time * 0.5) - (missleNum * 10));
+	}
 }
