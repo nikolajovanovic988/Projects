@@ -122,6 +122,7 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 			hScore.showHighScore();
 		} else if (e.getSource() == credits) {
 			this.removeAll();
+			tm.start();
 			if (textShow == null) {
 				textShow = new TextShow("Credits.txt");
 				textShow.setCords(30, getHeight() + 10, -10, 15, Color.WHITE);
