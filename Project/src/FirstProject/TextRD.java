@@ -14,6 +14,7 @@ public class TextRD {
 		this.txtName = txtName;
 	}
 	
+	// Read file and send list of lines via ArrayList
 	public ArrayList<String> readFromFile() {
 		
 		BufferedReader rd;
@@ -35,6 +36,7 @@ public class TextRD {
 		return arr;
 	}
 	
+	// Write into file
 	public void wrieIntoFile(String newScore) {
 		
 		ArrayList<String> arr = readFromFile();

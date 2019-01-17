@@ -10,12 +10,12 @@ public class Gameplay extends JPanel implements ActionListener {
 	private int width;
 	private int height;
 	public Ship palyerShip;
-	public boolean missle = true; // to check if missile is ready to be fired again
-	public int missleX;
-	public int missleY;
+	public boolean missile = true; // to check if missile is ready to be fired again
+	public int missileX;
+	public int missileY;
 	
 	private int leftRightDistance = 20;
-	private int topDistance = 10;
+	private int topDistance = 50;
 	private int botomDistance = 10;
 	private int spaceBetweenShips = 20;
 	private int numOfShips = 10;
@@ -30,7 +30,7 @@ public class Gameplay extends JPanel implements ActionListener {
 	
 	private int score = 10000;
 	private int time = 0;
-	private int missleNum = 0;
+	private int missileNum = 0;
 	
 	public Gameplay (int width, int height) {
 		this.height = height;
@@ -38,11 +38,12 @@ public class Gameplay extends JPanel implements ActionListener {
 		
 	}
 	
-	// 
+	//  paint ships on board
 	public void paintComponenet(Graphics g) {
 		super.paintComponent(g);
 		
-		if (setup == false) {
+		// first setup when game starts
+		if (setup == false) { 
 			for (int i = 0; i < ships.length; i++) {
 				for (int j = 0; j < ships[0].length; j++) {
 					ships[i][j] = new Ship();
@@ -53,7 +54,8 @@ public class Gameplay extends JPanel implements ActionListener {
 			setup = true;
 		}
 		
-		if (palyerShip == null) {
+		// first setup of player ship
+		if (palyerShip == null) { 
 			palyerShip = new Ship();
 			palyerShip.setShipWidth(((width - (leftRightDistance*2)) - (spaceBetweenShips*(numOfShips-1))) / numOfShips);
 			palyerShip.setShipHeight(30);
@@ -61,14 +63,15 @@ public class Gameplay extends JPanel implements ActionListener {
 			playerShipY = height - botomDistance - 10;
 		}
 		
+		 // check if ship is in far left or right border
 		if (LRBorderCheck) {
 			scale++;
 		} else if (!LRBorderCheck) {
 			scale--;
 		}
 		
-		missle(g);
-		drawShips(g);
+		missile(g); // draw misle
+		drawShips(g); // draw all ships
 		
 	}
 	
@@ -84,7 +87,7 @@ public class Gameplay extends JPanel implements ActionListener {
 					
 					ships[i][j].drawShip(g, x, y);
 					
-					if (checkIfHitt(x,y)) {
+					if (checkIfHit(x,y)) {
 						ships[i][j].setStatus(false);
 						ships[i][j].setExplosion(true);
 					}
@@ -106,45 +109,48 @@ public class Gameplay extends JPanel implements ActionListener {
 			}
 		}
 		
-		//explosionFrameNumber ++;
-		
+		// draw player ship
 		palyerShip.drawPlayerShip(g,  playerShipX - palyerShip.getShipWidth()/2 , playerShipY);
 	}
 	
-	public void missle(Graphics g) {
-		if (missle) {
+	// check if missile is lunched and draw it
+	public void missile(Graphics g) {
+		if (missile) {
 			g.setColor(Color.WHITE);
 			
-			missleX = playerShipX - 3;
-			missleY = playerShipY - (int)(palyerShip.getShipHeight() * 0.65);
+			missileX = playerShipX - 3;
+			missileY = playerShipY - (int)(palyerShip.getShipHeight() * 0.65);
 			
-			g.fillRect(missleX , missleY, 4	, 6);
-		} else if (missle == false) {
+			g.fillRect(missileX , missileY, 4	, 6);
+		} else if (missile == false) {
 			g.setColor(Color.WHITE);
-			missleY -= 5;
-			g.fillRect(missleX , missleY, 4	, 6);
-			if (missleY < 0) {
-				missle = true;
-				missleNum++;
+			missileY -= 5;
+			g.fillRect(missileX , missileY, 4	, 6);
+			if (missileY < 0) {
+				missile = true;
+				missileNum++;
 			}
 		}
 	}
 	
-	public boolean checkIfHitt(int x, int y) {
+	// check if ship is hit
+	public boolean checkIfHit(int x, int y) {
 		
-		if(missleX >= x & missleX <= x + palyerShip.getShipWidth() & missleY == y) {
-			missle = true;
-			missleNum++;
+		if(missileX >= x & missileX <= x + palyerShip.getShipWidth() & missileY == y) {
+			missile = true;
+			missileNum++;
 			return true;
 		}
 		
 		return false;
 	}
 	
+	
 	public void actionPerformed(ActionEvent arg0) {
 		repaint();
 	}
 	
+	// check if all ships are down, and return result
 	public boolean gameEnded() {
 		for (int i = 0; i < ships.length; i++) {
 			for (int j = 0; j < ships[0].length; j++) {
@@ -156,7 +162,8 @@ public class Gameplay extends JPanel implements ActionListener {
 		return true;
 	}
 	
+	// return game score
 	public String getscore() {
-		return Integer.toString(score - (int)(time * 0.5) - (missleNum * 10));
+		return Integer.toString(score - (int)(time * 0.5) - (missileNum * 10));
 	}
 }

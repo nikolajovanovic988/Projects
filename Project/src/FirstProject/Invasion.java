@@ -13,7 +13,8 @@ import javax.swing.*;
 
 public class Invasion extends JPanel implements ActionListener, KeyListener {
 
-	private JButton newGame, loadGame, highScore, credits, exit;
+	private JButton newGame, loadGame, highScore, credits, exit, back, save;
+	
 	private Image image;
 	
 	private int buttonHeight = 20;
@@ -35,8 +36,9 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 		
-		}
+	}
 	
+	// set buttons on panel
 	public void setButtons() {
 		newGame = new JButton("New Game");
 		loadGame = new JButton("Load Game");
@@ -106,20 +108,34 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getSource() == newGame) {
+			
 			this.removeAll();
 			tm.start();
+			
 			playerName = JOptionPane.showInputDialog("Enter your name: ");
 			gameplay = new Gameplay (getWidth(), getHeight());
-			//JButton button = new JButton("BUTTON");
-			//button.setBounds(800/2 - buttonWidth/2, 500/2 - buttonHeight/2 - buttonHeight * 2 - 20, buttonWidth, buttonHeight);
-			//this.add(button);
+			
+			back = new JButton("exit");
+			save = new JButton("save");
+			
+			back.setBounds(getWidth() - 150, 20, 65, 15);
+			save.setBounds(getWidth() - 75, 20, 65, 15);
+			
+			back.addActionListener(this);
+			save.addActionListener(this);
+			
+			add(back);
+			add(save);
 			repaint();
 			
 		} else if (e.getSource() == loadGame) {
 			
+			
+			
 		} else if (e.getSource() == highScore) {
 			hScore = new HighScore("HighScore.txt");
 			hScore.showHighScore();
+			
 		} else if (e.getSource() == credits) {
 			this.removeAll();
 			tm.start();
@@ -127,13 +143,32 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 				textShow = new TextShow("Credits.txt");
 				textShow.setCords(30, getHeight() + 10, -10, 15, Color.WHITE);
 			}
+			back = new JButton("<-Back");
+			back.setBounds(20, 20, buttonWidth, buttonHeight);
+			back.addActionListener(this);
+			add(back);
+			
 		} else if (e.getSource() == exit) {
 			System.exit(0);
+		}
+		
+		// this action pr are for manipulation when you are in objects
+		
+		if (e.getSource() == back) {
+			textShow = null;
+			gameplay = null;
+			tm.stop();
+			this.removeAll();
+			setButtons();
+			
+		} else if(e.getSource() == save) {
+			
 		}
 		
 		repaint();
 	}
 
+	// just for gameplay class
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();
         if (code == KeyEvent.VK_LEFT) {
@@ -155,7 +190,7 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 	public void keyTyped(KeyEvent e) {
 		char ch = e.getKeyChar();
 		if (ch == ' ') {
-			gameplay.missle = false;
+			gameplay.missile = false;
 		}
 		
 	}

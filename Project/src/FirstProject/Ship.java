@@ -9,6 +9,7 @@ public class Ship {
 	private boolean status = true;
 	private boolean explosion = false;
 	
+	
 	public Ship () {
 		
 	}
@@ -41,10 +42,11 @@ public class Ship {
 	public boolean getExplosion() {
 		return explosion;
 	}
+	// if true explosion is happening 
 	public void setExplosion(boolean explosion) {
 		this.explosion = explosion;
 	}
-	
+	// draw explosion
 	public void  exploading (Graphics g, int x, int y, int explosionFrameNumber) {
 		g.setColor(Color.YELLOW);
         g.fillOval(x - 4*explosionFrameNumber,
