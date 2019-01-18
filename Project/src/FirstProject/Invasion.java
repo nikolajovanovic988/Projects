@@ -22,6 +22,7 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 	private Gameplay gameplay;
 	private TextShow textShow;
 	private HighScore hScore = new HighScore("HighScore.txt");
+	private Save saveGame;
 	
 	private String playerName;
 	
@@ -107,7 +108,7 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 	// Action performed for buttons
 	public void actionPerformed(ActionEvent e) {
 		
-		if (e.getSource() == newGame) {
+		if (e.getSource() == newGame || e.getSource() == loadGame) {
 			
 			this.removeAll();
 			tm.start();
@@ -115,6 +116,11 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 			playerName = JOptionPane.showInputDialog("Enter your name: ");
 			gameplay = new Gameplay (getWidth(), getHeight());
 			
+			if (e.getSource() == loadGame){
+				
+				saveGame = new Save("Save.txt");
+				gameplay.setSavedShipsList(saveGame.getSave());
+			}
 			back = new JButton("exit");
 			save = new JButton("save");
 			
@@ -126,12 +132,8 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 			
 			add(back);
 			add(save);
-			repaint();
-			
-		} else if (e.getSource() == loadGame) {
-			
-			
-			
+			repaint();	
+
 		} else if (e.getSource() == highScore) {
 			hScore = new HighScore("HighScore.txt");
 			hScore.showHighScore();
@@ -154,15 +156,16 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 		
 		// this action pr are for manipulation when you are in objects
 		
-		if (e.getSource() == back) {
+		if (e.getSource() == back) { // return to menu
 			textShow = null;
 			gameplay = null;
 			tm.stop();
 			this.removeAll();
 			setButtons();
 			
-		} else if(e.getSource() == save) {
-			
+		} else if(e.getSource() == save) { // save game
+			saveGame = new Save("Save.txt");
+			saveGame.setSave(gameplay.getSavedShipsList());
 		}
 		
 		repaint();

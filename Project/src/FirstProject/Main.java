@@ -15,11 +15,16 @@ public class Main extends JFrame{
 	public static MySQL_Project database;
 	public static boolean checkIfLocalSelected = false;
 	
+	
+	
 	public static JMenuItem SQL, INVASION, ANIMATION;
 	
 	public static void main(String[] args) {
 		window = new JFrame ("My First Project");
-		main();
+		start();
+		Intro container = new Intro();
+		window.setContentPane(container);
+		
 		window.setSize(820,500);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		window.setLocation((screenSize.width - window.getWidth()) / 2 , (screenSize.height - window.getHeight()) / 2);
@@ -28,9 +33,64 @@ public class Main extends JFrame{
 		window.setVisible(true);
 	}
 
+	public static class Intro extends JPanel{
+		
+		public JButton walkingMan, jdbc, game;
+		
+		public Intro() {
 
-	public static void main () {
-		window.setContentPane(animation);
+			walkingMan = new JButton("Animation");
+			jdbc = new JButton("SQL and JDBC project");
+			game = new JButton("Play the game");
+			
+			walkingMan.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					animation = new Animation();
+					checkIfLocalSelected = true;
+					window.getContentPane().removeAll();
+					window.setContentPane(animation);
+					window.revalidate();
+				}
+			});
+			
+			jdbc.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					database = new MySQL_Project();
+					checkIfLocalSelected = true;
+					window.getContentPane().removeAll();
+					window.setContentPane(database);
+					window.revalidate();
+				}
+			});
+			
+			game.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					invasion = new Invasion();
+					checkIfLocalSelected = true;
+					window.getContentPane().removeAll();
+					window.setContentPane(invasion);
+					window.revalidate();
+				}
+			});
+			
+			add(walkingMan);
+			add(jdbc);
+			add(game);
+		}
+		
+		
+		
+	}
+	
+	
+	public static void start () {
+		//window.setContentPane(animation);
+		
+		actionListeners();
+	}
+	
+	public static void actionListeners() {
+		
 		menubar = new JMenuBar();
 		window.setJMenuBar(menubar);
 		
@@ -46,7 +106,6 @@ public class Main extends JFrame{
 				window.setContentPane(animation);
 				window.revalidate();
 			}
-			
 		});
 		
 		SQL = new JMenuItem ("MySQL Project");
@@ -76,6 +135,6 @@ public class Main extends JFrame{
 		menu.add(ANIMATION);
 		menu.add(SQL);
 		menu.add(INVASION);
-		
 	}
+	
 }

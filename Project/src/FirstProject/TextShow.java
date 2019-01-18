@@ -28,8 +28,8 @@ public class TextShow extends TextRD {
 	
 	// Constructor, it will just read file that will be shown in frame.
 	
-	public TextShow(String txtName) {
-		super (txtName);
+	public TextShow(String textName) {
+		super (textName);
 		letter = readFromFile();
 		checkLetter = new boolean[letter.size()];
 		y = new int[letter.size()];

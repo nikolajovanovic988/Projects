@@ -17,8 +17,8 @@ public class HighScore extends TextRD {
 	private String[][] data;
 	private ArrayList<String> lines = new ArrayList<String>();
 	
-	public HighScore(String txtName) {
-		super(txtName);
+	public HighScore(String textName) {
+		super(textName);
 	}
 	
 	public void setScore(String score) {

@@ -8,10 +8,10 @@ import java.util.ArrayList;
 
 public class TextRD {
 
-	private String txtName;
+	private String textName;
 	
-	public TextRD (String txtName) {
-		this.txtName = txtName;
+	public TextRD (String textName) {
+		this.textName = textName;
 	}
 	
 	// Read file and send list of lines via ArrayList
@@ -21,7 +21,7 @@ public class TextRD {
 		ArrayList<String> arr = new ArrayList<String>();
 		
 		try {
-			rd = new BufferedReader(new FileReader(txtName));
+			rd = new BufferedReader(new FileReader(textName));
 			
 			while (true) {
 				String str = rd.readLine();
@@ -46,7 +46,7 @@ public class TextRD {
 		PrintWriter wrf;
 		
 		try {
-			wrf = new PrintWriter(new FileWriter(txtName));
+			wrf = new PrintWriter(new FileWriter(textName));
 			
 			for (int i = 0; i < arr.size(); i++) {
 				if (i == 0) {

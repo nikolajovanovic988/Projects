@@ -166,4 +166,48 @@ public class Gameplay extends JPanel implements ActionListener {
 	public String getscore() {
 		return Integer.toString(score - (int)(time * 0.5) - (missileNum * 10));
 	}
+	
+	// return list of ships who are alive
+	public String[][] getSavedShipsList() {
+		
+		String[][] list = new String[4][numOfShips];
+		
+
+		for (int i = 0; i < ships.length; i++) {
+			for (int j = 0; j < ships[0].length; j++) {
+		
+				if (ships[i][j].getStatus() == true) {
+					list[i][j] = "1";
+				} else {
+					list[i][j] = "0";
+				}
+			}
+		}
+		
+		return list;
+	}
+	
+	// set ships status
+	public void setSavedShipsList(String[][] list) {
+		
+		
+
+		for (int i = 0; i < list.length; i++) {
+			for (int j = 0; j < list[0].length; j++) {
+				
+				ships[i][j] = new Ship();
+				ships[i][j].setShipWidth(((width - (leftRightDistance*2)) - (spaceBetweenShips*(numOfShips-1))) / numOfShips);
+				ships[i][j].setShipHeight(30);
+				
+				if (list[i][j].equals("1")) {
+					ships[i][j].setStatus(true);
+				} else {
+					ships[i][j].setStatus(false);
+				}
+			}
+		}
+		
+		setup = true;
+	}
+	
 }
