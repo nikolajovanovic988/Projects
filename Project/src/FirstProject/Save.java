@@ -4,12 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Save  {
-
-	private ArrayList<String> load;
 	
 	private String textName;
 	

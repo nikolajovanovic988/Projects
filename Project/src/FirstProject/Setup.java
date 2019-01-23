@@ -7,8 +7,6 @@ public class Setup {
 
 	public int height;
 	public int width;
-	private int squareWidth;
-	private int squareHeight; 
 	
 	public Setup() {
 		
