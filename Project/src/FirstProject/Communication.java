@@ -3,72 +3,73 @@ package FirstProject;
 import java.sql.*;
 import java.util.*;
 
+import javax.sql.DataSource;
 import javax.swing.JOptionPane;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+
 public class Communication {
+	
 	private Connection conn;
 	private ArrayList<String> databaseList;
 	private ArrayList<String> tableList;
 	private boolean isconnected = false;
 	
-	// Do connect...
-	public Communication(String IP, String username, String pass) throws Exception{
+	
+	private DataSource dataSource;
+	private JdbcTemplate jdbcTemplate;
+	
+	public Communication() throws SQLException {
 		
-		try {
+		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+		dataSource = (DataSource)context.getBean("dataSource");
 			
-			String driver = "com.mysql.cj.jdbc.Driver"; // it works without this
-			String URL = "jdbc:mysql://"+IP+":3306/?useSSL=false";
+		conn = dataSource.getConnection();
+		isconnected = true;
 			
-			Class.forName(driver); // it works without this
+		((ClassPathXmlApplicationContext) context).close();
 			
-			conn = DriverManager.getConnection( URL, username, pass);
-			isconnected = true;
-		} catch (Exception e){
-			JOptionPane.showMessageDialog( null, e.getMessage());
-			isconnected = false;
-		}
+		jdbcTemplate = new JdbcTemplate(dataSource);
+		
+		
 	}
-	
-
-	
-	
 	
 	public void doSQLFunction(String action, String tableName, String databaseName, 
 			String name, String datatype, 
 			String condition, String conditionValue, String column, String value,
 			String modifyName, String newName, String modifyDatatype,
 			String updateColumnName, String updateColumnValue, String updateConditionColumnName, String updateConditionValue) {
+	
+		switch (action) {
 		
-		
-		try {
-			
-			Statement statement = conn.createStatement();
-			PreparedStatement st;
-			
-			switch (action) {
-			
 			case "CREATE": // create new database
-				statement.executeUpdate("CREATE DATABASE "+ databaseName);
-				statement.close();
+				
+				jdbcTemplate.update("CREATE DATABASE "+ databaseName);
 				JOptionPane.showMessageDialog( null, "You have created new database: "+ databaseName);
+				
 				break;
 			
 			case "DELETE": // delete database
-				statement.executeUpdate("DROP DATABASE "+databaseName);
-				statement.close();
+				
+				jdbcTemplate.update("DROP DATABASE "+databaseName);
 				JOptionPane.showMessageDialog( null, "You have deleted database: "+ databaseName);
+				
 				break;
 				
 			case "Create Tab.": // create new table
-				statement.executeUpdate("CREATE TABLE "+ databaseName +"."+ tableName +"(id int)");
-				statement.close();
+				
+				jdbcTemplate.update("CREATE TABLE "+ databaseName +"."+ tableName +"(id int)");
 				JOptionPane.showMessageDialog( null, "You have created table: " + tableName);
+				
 				break;
 				
 			case "Delete Tab.": // delete table
-				statement.executeUpdate("DROP TABLE "+ databaseName +"."+ tableName);
-				statement.close();
+				
+				jdbcTemplate.update("DROP TABLE "+ databaseName +"."+ tableName);
 				JOptionPane.showMessageDialog( null, "You have deleted table: " + tableName);
+				
 				break;
 			
 			case "Add col.": // add new column
@@ -76,11 +77,10 @@ public class Communication {
 					JOptionPane.showMessageDialog( null, "Your database name ot table name is wrong");
 					return;
 				}
-				st = conn.prepareStatement("ALTER TABLE "+ databaseName + "."+ tableName +" ADD "+ name +
-						" "+ datatype);
-				st.executeUpdate();
-				st.close();
+				
+				jdbcTemplate.update("ALTER TABLE "+ databaseName + "."+ tableName +" ADD "+ name +" "+ datatype);
 				JOptionPane.showMessageDialog( null, "You have added a new column : " + name);
+				
 				break;
 			
 			case "Drop col.": // delete column
@@ -88,49 +88,44 @@ public class Communication {
 					JOptionPane.showMessageDialog( null, "Your database name ot table name is wrong");
 					return;
 				}
-				st= conn.prepareStatement("ALTER TABLE "+ databaseName + "."+ tableName +" DROP COLUMN "+ name);
-				st.executeUpdate();
-				st.close();
+				
+				jdbcTemplate.update("ALTER TABLE "+ databaseName + "."+ tableName +" DROP COLUMN "+ name);
 				JOptionPane.showMessageDialog( null, "You have deleted a new column : " + name);
+				
 				break;
 				
 			case "Delete": // delete row
-				st = conn.prepareStatement("DELETE FROM "+ databaseName +"."+ tableName +" WHERE "
-						+ condition +"='"+ conditionValue +"'");
-				st.executeUpdate();
-				st.close();
+				
+				jdbcTemplate.update("DELETE FROM "+ databaseName +"."+ tableName +" WHERE "
+						+ condition +"= ?", conditionValue);
+				
 				break;
 			
 			case "Insert row": // insert new row
-				st = conn.prepareStatement("INSERT INTO "+ databaseName +"."+ tableName +" ("+ column +
-						") VALUES ('"+ value +"')");
-				st.executeUpdate();
-				st.close();
+				
+				jdbcTemplate.update("INSERT INTO "+ databaseName +"."+ tableName +" ("+ column +
+						") VALUES (?)", value);
+				
 				break;
 			
 			case "Modify": // modify column
 				if (!newName.equals("")) {
-					statement.executeUpdate("ALTER TABLE "+ databaseName +"."+ tableName +" CHANGE "+ modifyName +" "+ newName +" "+ datatype);
+					jdbcTemplate.update("ALTER TABLE "+ databaseName +"."+ tableName +" CHANGE "+ modifyName +" "+ newName +" "+ datatype);
 					JOptionPane.showMessageDialog( null, "Column name "+ modifyName +" has changed to "+ newName);
 				} else {
-					statement.executeUpdate("ALTER TABLE "+ databaseName +"."+ tableName +" MODIFY COLUMN "+ modifyName +" "+ modifyDatatype);
+					jdbcTemplate.update("ALTER TABLE "+ databaseName +"."+ tableName +" MODIFY COLUMN "+ modifyName +" "+ modifyDatatype);
 					JOptionPane.showMessageDialog( null, "Column datatype has changed to: "+ modifyDatatype);
 				}
-				statement.close();
+				
 				break;
 				
 			case "Update col.": // update column
-				st = conn.prepareStatement("UPDATE "+ databaseName +"."+ tableName +" SET "+ updateColumnName +
-						" = '" + updateColumnValue +"' WHERE "+ updateConditionColumnName +" = "+ updateConditionValue);
-				st.executeUpdate();
 				
-				st.close();
+				jdbcTemplate.update("UPDATE "+ databaseName +"."+ tableName +" SET "+ updateColumnName +
+						" = ? WHERE "+ updateConditionColumnName +" = ?", updateColumnValue, updateConditionValue);
+				
 				break;
-			
-			}
-			
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog( null, e.getMessage());
+		
 		}
 		
 	}

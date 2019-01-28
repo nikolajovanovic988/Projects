@@ -4,5 +4,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-	<bean id="helloWorld" class="demo.HelloWorld"></bean>
+
+
+	<bean id="communication" class="FirstProject.Communication"></bean>
+	<bean id="walker" class="FirstProject.Walker"></bean>
+	<bean id="setup" class="FirstProject.Setup"></bean>
 </beans>

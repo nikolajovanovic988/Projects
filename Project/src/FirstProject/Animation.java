@@ -5,8 +5,15 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.Timer;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 public class Animation extends JPanel implements ActionListener {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Walker walker;
 	private Setup setup;
 	private Timer timer;
@@ -17,7 +24,10 @@ public class Animation extends JPanel implements ActionListener {
 	
 	public Animation() {
 		
-		
+		ApplicationContext context = new ClassPathXmlApplicationContext("beansTwo.xml");
+		walker = (Walker)context.getBean("walker");
+		setup = (Setup)context.getBean("setup");
+		((ClassPathXmlApplicationContext) context).close();
 		
 		// when mouse is pressed focus is gained.
 		addMouseListener( new MouseAdapter() {
@@ -45,11 +55,10 @@ public class Animation extends JPanel implements ActionListener {
 		
 		super.paintComponent(g);
 		
-		if (timer == null || walker == null || frame == null || setup == null) {
+		if (timer == null || frame == null) {
+			
 			timer = new Timer(12, this);
-			walker = new Walker();
 			frame = new TextShow("Propratno pismo.txt");
-			setup = new Setup();
 			
 			walker.raisingLeg = 15;
 			walker.height = getHeight();

@@ -7,8 +7,15 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 public class MySQL_Project extends JPanel implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public JButton ok;
 	public JButton createDB;
 	public JButton deleteDB;
@@ -69,6 +76,10 @@ public class MySQL_Project extends JPanel implements ActionListener {
 	public ArrayList<String> tableList;
 	
 	public MySQL_Project() {
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("beansTwo.xml");
+		conn = (Communication)context.getBean("communication");
+		((ClassPathXmlApplicationContext) context).close();
 		
 		setBackground(Color.GRAY);
 		setLayout(new FlowLayout());
@@ -391,84 +402,73 @@ public class MySQL_Project extends JPanel implements ActionListener {
 	// this is where all magic happen :)
 	public void actionPerformed(ActionEvent e) {
 		
-		/*
-		 * When user click button it open InputDialog and let user enter parameters. After
-		 * input it call getConnection for that parameters. Set database input visible and focus to TextField.
-		 * Read database list and show it in table.
-		 */
 		if(e.getSource() == connect) {
 			
-			IP = JOptionPane.showInputDialog("Chose connection. Enter IP Address or 'localhost' ");
-			if (IP.equals("")) {
-				JOptionPane.showMessageDialog( null, "You need to enter IP Address or 'localhost' ");
-				return;
-			}
-			username = JOptionPane.showInputDialog("Username:");
-			if (username.equals("")) {
-				JOptionPane.showMessageDialog( null, "You need to enter username ");
-				return;
-			}
-			pass = JOptionPane.showInputDialog("Password:");	
+//			IP = JOptionPane.showInputDialog("Chose connection. Enter IP Address or 'localhost' ");
+//			if (IP.equals("")) {
+//				JOptionPane.showMessageDialog( null, "You need to enter IP Address or 'localhost' ");
+//				return;
+//			}
+//			username = JOptionPane.showInputDialog("Username:");
+//			if (username.equals("")) {
+//				JOptionPane.showMessageDialog( null, "You need to enter username ");
+//				return;
+//			}
+//			pass = JOptionPane.showInputDialog("Password:");
 			
-			try {
 				
-				conn = new Communication (IP, username, pass);
+			if (conn.isConnected()) {
 				
-				if (conn.isConnected()) {
-					
-					JOptionPane.showMessageDialog( null, "Connected");
-					
-					databaseField.setEnabled(true);
-					ok.setEnabled(true);
-					createDB.setEnabled(true);
-					deleteDB.setEnabled(true);
-					getDBList.setEnabled(true);
-					databaseField.requestFocus();
-					
-					getDB.setEnabled(true);
-					getTableList.setEnabled(true);
-					showTable.setEnabled(true);
-					getTableDBListField.setEnabled(true);
-					showTableField.setEnabled(true);
-					getTable.setEnabled(true);
-					colimnListSelect.setEnabled(true);
-					
-					tableField.setEnabled(true);
-					selectTable.setEnabled(true);
-					createTable.setEnabled(true);
-					deleteTable.setEnabled(true);
-					columnField.setEnabled(true);
-					add.setEnabled(true);
-					dataTypeAdd.setEnabled(true);
-					drop.setEnabled(true);
-					modify.setEnabled(true);
-					update.setEnabled(true);
-					deleteRow.setEnabled(true);
-					insert.setEnabled(true);
-					conditionNameUpdate.setEnabled(true);
-					conditionValue.setEnabled(true);
-					rowCondition.setEnabled(true);
-					rowValue.setEnabled(true);
-					columnNameUpdate.setEnabled(true);
-					columnValue.setEnabled(true);
-					modifyField.setEnabled(true);
-					modifyFieldNew.setEnabled(true);
-					dataTypeModify.setEnabled(true);
-					
-					databaseList = conn.getDatabaseList();
-					setTable(conn.getTableList(databaseList, columnDatabase.length), columnDatabase); // print table on right panel
-					
-					databaseField.requestFocus();
-					
-					
-				} else {
-					JOptionPane.showMessageDialog( null, "You did not connect, try again");
-				}
 				
-			} catch (Exception ex) {
-				ex.printStackTrace();
+				JOptionPane.showMessageDialog( null, "Connected");
+				
+				databaseField.setEnabled(true);
+				ok.setEnabled(true);
+				createDB.setEnabled(true);
+				deleteDB.setEnabled(true);
+				getDBList.setEnabled(true);
+				databaseField.requestFocus();
+				
+				getDB.setEnabled(true);
+				getTableList.setEnabled(true);
+				showTable.setEnabled(true);
+				getTableDBListField.setEnabled(true);
+				showTableField.setEnabled(true);
+				getTable.setEnabled(true);
+				colimnListSelect.setEnabled(true);
+				
+				tableField.setEnabled(true);
+				selectTable.setEnabled(true);
+				createTable.setEnabled(true);
+				deleteTable.setEnabled(true);
+				columnField.setEnabled(true);
+				add.setEnabled(true);
+				dataTypeAdd.setEnabled(true);
+				drop.setEnabled(true);
+				modify.setEnabled(true);
+				update.setEnabled(true);
+				deleteRow.setEnabled(true);
+				insert.setEnabled(true);
+				conditionNameUpdate.setEnabled(true);
+				conditionValue.setEnabled(true);
+				rowCondition.setEnabled(true);
+				rowValue.setEnabled(true);
+				columnNameUpdate.setEnabled(true);
+				columnValue.setEnabled(true);
+				modifyField.setEnabled(true);
+				modifyFieldNew.setEnabled(true);
+				dataTypeModify.setEnabled(true);
+				
+				databaseList = conn.getDatabaseList();
+				setTable(conn.getTableList(databaseList, columnDatabase.length), columnDatabase); // print table on right panel
+					
+				databaseField.requestFocus();
+				
+					
+			} else {
 				JOptionPane.showMessageDialog( null, "You did not connect, try again");
 			}
+			
 			
 		}
 	

@@ -7,6 +7,10 @@ import javax.swing.*;
 
 public class Gameplay extends JPanel implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int width;
 	private int height;
 	public Ship palyerShip;

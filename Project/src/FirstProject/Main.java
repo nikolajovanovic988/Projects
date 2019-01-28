@@ -8,6 +8,10 @@ import javax.swing.*;
 
 public class Main extends JFrame{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static JFrame window;
 	public static Animation animation = new Animation();
 	public static Invasion invasion;
@@ -35,6 +39,10 @@ public class Main extends JFrame{
 
 	public static class Intro extends JPanel{
 		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		public JButton walkingMan, jdbc, game;
 		
 		public Intro() {

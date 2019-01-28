@@ -13,6 +13,11 @@ import javax.swing.*;
 
 public class Invasion extends JPanel implements ActionListener, KeyListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private JButton newGame, loadGame, highScore, credits, exit, back, save;
 	
 	private Image image;
