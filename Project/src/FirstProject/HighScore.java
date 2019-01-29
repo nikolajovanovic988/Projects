@@ -17,10 +17,16 @@ public class HighScore extends TextRD {
 	private String[][] data;
 	private ArrayList<String> lines = new ArrayList<String>();
 	
-	public HighScore(String textName) {
-		super(textName);
+	
+	public HighScore() {
 	}
 	
+	public void setTextName(String textName) {
+		super.setTextName(textName);
+	}
+
+
+
 	public void setScore(String score) {
 		wrieIntoFile(score);
 	}

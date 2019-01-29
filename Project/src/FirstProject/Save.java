@@ -10,7 +10,11 @@ public class Save  {
 	
 	private String textName;
 	
-	public Save(String textName) {
+	public Save() {
+		
+	}
+	
+	public void setTextName(String textName) {
 		this.textName = textName;
 	}
 	

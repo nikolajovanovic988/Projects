@@ -36,12 +36,18 @@ public class Gameplay extends JPanel implements ActionListener {
 	private int time = 0;
 	private int missileNum = 0;
 	
-	public Gameplay (int width, int height) {
-		this.height = height;
-		this.width = width;
+	public Gameplay () {
 		
 	}
 	
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
 	//  paint ships on board
 	public void paintComponenet(Graphics g) {
 		super.paintComponent(g);

@@ -27,6 +27,7 @@ public class Animation extends JPanel implements ActionListener {
 		ApplicationContext context = new ClassPathXmlApplicationContext("beansTwo.xml");
 		walker = (Walker)context.getBean("walker");
 		setup = (Setup)context.getBean("setup");
+		frame = (TextShow)context.getBean("textShow");
 		((ClassPathXmlApplicationContext) context).close();
 		
 		// when mouse is pressed focus is gained.
@@ -49,16 +50,18 @@ public class Animation extends JPanel implements ActionListener {
 				repaint();
 			}
 		} );
+		
 	}
 	
 	public void paintComponent (Graphics g) {
 		
 		super.paintComponent(g);
 		
-		if (timer == null || frame == null) {
+		if (timer == null) {
 			
 			timer = new Timer(12, this);
-			frame = new TextShow("Propratno pismo.txt");
+			
+			frame.setTextName("Propratno pismo.txt");
 			
 			walker.raisingLeg = 15;
 			walker.height = getHeight();

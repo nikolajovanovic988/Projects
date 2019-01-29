@@ -10,10 +10,14 @@ public class TextRD {
 
 	private String textName;
 	
-	public TextRD (String textName) {
-		this.textName = textName;
+	public TextRD () {
+		
 	}
 	
+	public void setTextName(String textName) {
+		this.textName = textName;
+	}
+
 	// Read file and send list of lines via ArrayList
 	public ArrayList<String> readFromFile() {
 		

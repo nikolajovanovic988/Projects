@@ -11,6 +11,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 public class Invasion extends JPanel implements ActionListener, KeyListener {
 
 	/**
@@ -26,17 +29,23 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 	private int buttonWidth = 120;
 	private Gameplay gameplay;
 	private TextShow textShow;
-	private HighScore hScore = new HighScore("HighScore.txt");
+	private HighScore hScore;
 	private Save saveGame;
 	
 	private String playerName;
 	
 	private Timer tm = new Timer(5, this);
 	
+	private ApplicationContext context;
+	
 	public Invasion() {
 		
 		setLayout(null);
 		setButtons();
+		
+		context = new ClassPathXmlApplicationContext("beansTwo.xml");
+		saveGame = (Save)context.getBean("save");
+		hScore = (HighScore)context.getBean("highScore");
 		
 		addKeyListener(this);
 		setFocusable(true);
@@ -119,11 +128,14 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 			tm.start();
 			
 			playerName = JOptionPane.showInputDialog("Enter your name: ");
-			gameplay = new Gameplay (getWidth(), getHeight());
+			gameplay = (Gameplay)context.getBean("gameplay");
+			gameplay.setWidth(getWidth());
+			gameplay.setHeight(getHeight());
 			
 			if (e.getSource() == loadGame){
 				
-				saveGame = new Save("Save.txt");
+				saveGame = new Save();
+				saveGame.setTextName("Save.txt");
 				gameplay.setSavedShipsList(saveGame.getSave());
 			}
 			back = new JButton("exit");
@@ -140,14 +152,16 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 			repaint();	
 
 		} else if (e.getSource() == highScore) {
-			hScore = new HighScore("HighScore.txt");
+			
+			hScore.setTextName("HighScore.txt");
 			hScore.showHighScore();
 			
 		} else if (e.getSource() == credits) {
 			this.removeAll();
 			tm.start();
 			if (textShow == null) {
-				textShow = new TextShow("Credits.txt");
+				textShow = (TextShow)context.getBean("textShow");
+				textShow.setTextName("Credits.txt");
 				textShow.setCords(30, getHeight() + 10, -10, 15, Color.WHITE);
 			}
 			back = new JButton("<-Back");
@@ -156,6 +170,7 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 			add(back);
 			
 		} else if (e.getSource() == exit) {
+			((ClassPathXmlApplicationContext) context).close();
 			System.exit(0);
 		}
 		
@@ -169,7 +184,8 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 			setButtons();
 			
 		} else if(e.getSource() == save) { // save game
-			saveGame = new Save("Save.txt");
+			
+			saveGame.setTextName("Save.txt");
 			saveGame.setSave(gameplay.getSavedShipsList());
 		}
 		

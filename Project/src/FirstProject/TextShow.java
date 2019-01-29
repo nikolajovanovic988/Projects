@@ -24,10 +24,15 @@ public class TextShow extends TextRD {
 	private int fontSize;
 	private Color color;
 	
-	// Constructor, it will just read file that will be shown in frame.
 	
-	public TextShow(String textName) {
-		super (textName);
+	// Constructor, it will just read file that will be shown in frame.
+
+	public TextShow() {
+		
+	}
+	
+	public void setTextName(String textName) {
+		super.setTextName(textName);
 		letter = readFromFile();
 		checkLetter = new boolean[letter.size()];
 		y = new int[letter.size()];

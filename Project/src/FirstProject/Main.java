@@ -13,13 +13,13 @@ public class Main extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	public static JFrame window;
-	public static Animation animation = new Animation();
-	public static Invasion invasion;
 	public static JMenuBar menubar;
+	
+	public static Animation animation;
+	public static Invasion invasion;
 	public static MySQL_Project database;
+	
 	public static boolean checkIfLocalSelected = false;
-	
-	
 	
 	public static JMenuItem SQL, INVASION, ANIMATION;
 	

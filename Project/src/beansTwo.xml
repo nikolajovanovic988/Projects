@@ -4,9 +4,16 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-
-
 	<bean id="communication" class="FirstProject.Communication"></bean>
+	
 	<bean id="walker" class="FirstProject.Walker"></bean>
 	<bean id="setup" class="FirstProject.Setup"></bean>
+	
+	<bean id="gameplay" class="FirstProject.Gameplay"></bean>
+	<bean id="ship" class="FirstProject.Ship"></bean>
+	<bean id="save" class="FirstProject.Save"></bean>
+	<bean id="highScore" class="FirstProject.HighScore"></bean>
+	
+	<bean id="textShow" class="FirstProject.TextShow"></bean>
+	
 </beans>
