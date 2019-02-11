@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="communication" class="MySQL.Project.Communication"></bean>
+	
+	<bean id="walker" class="Animation.Project.Walker"></bean>
+	<bean id="setup" class="Animation.Project.Setup"></bean>
+	
+	
+	<bean id="gameplay" class="Invasion.Project.Gameplay"></bean>
+	<bean id="ship" class="Invasion.Project.Ship"></bean>
+	<bean id="save" class="Invasion.Project.Save"></bean>
+	<bean id="highScore" class="Invasion.Project.HighScore"></bean>
+	
+	
+	<bean id="textShow" class="MainProject.TextShow"></bean>
+</beans>
