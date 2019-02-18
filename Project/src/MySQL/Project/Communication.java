@@ -12,7 +12,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public class Communication {
 	
+	
 	private Connection conn;
+	
 	private ArrayList<String> databaseList;
 	private ArrayList<String> tableList;
 	private boolean isconnected = false;

@@ -3,9 +3,9 @@
 	<a href="/" class="navbar-brand">Brand</a>
 
 	<ul class="nav navbar-nav">
-		<li class="active"><a href="#">Home</a></li>
-		<li><a href="">Todos</a></li>
-		<li><a href="">Phonebook</a></li>
+		<li><a href="/home.do">Home</a></li>
+		<li><a href="/list-todo.do">Todos</a></li>
+		<li><a href="/list-phonebook.do">Phonebook</a></li>
 	</ul>
 
 	<ul class="nav navbar-nav navbar-right">

@@ -11,7 +11,9 @@
 	
 	<bean id="gameplay" class="Invasion.Project.Gameplay"></bean>
 	<bean id="ship" class="Invasion.Project.Ship"></bean>
-	<bean id="save" class="Invasion.Project.Save"></bean>
+	<bean id="save" class="Invasion.Project.Save">
+		<property name="textName" value="Save.txt"></property>
+	</bean>
 	<bean id="highScore" class="Invasion.Project.HighScore"></bean>
 	
 	

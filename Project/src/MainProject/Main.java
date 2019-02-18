@@ -47,7 +47,7 @@ public class Main extends JFrame{
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-		public JButton walkingMan, jdbc, game;
+		private JButton walkingMan, jdbc, game;
 		
 		public Intro() {
 
@@ -55,42 +55,12 @@ public class Main extends JFrame{
 			jdbc = new JButton("SQL and JDBC project");
 			game = new JButton("Play the game");
 			
-			walkingMan.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					animation = new Animation();
-					checkIfLocalSelected = true;
-					window.getContentPane().removeAll();
-					window.setContentPane(animation);
-					window.revalidate();
-				}
-			});
-			
-			jdbc.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					database = new MySQL_Project();
-					checkIfLocalSelected = true;
-					window.getContentPane().removeAll();
-					window.setContentPane(database);
-					window.revalidate();
-				}
-			});
-			
-			game.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					invasion = new Invasion();
-					checkIfLocalSelected = true;
-					window.getContentPane().removeAll();
-					window.setContentPane(invasion);
-					window.revalidate();
-				}
-			});
+			addListeners(walkingMan, jdbc, game);
 			
 			add(walkingMan);
 			add(jdbc);
 			add(game);
 		}
-		
-		
 		
 	}
 	
@@ -110,6 +80,19 @@ public class Main extends JFrame{
 		menubar.add(menu);
 		
 		ANIMATION = new JMenuItem ("Introduction");
+		SQL = new JMenuItem ("MySQL Project");
+		INVASION = new JMenuItem ("Play a game");
+		
+		
+		addListeners(ANIMATION, SQL, INVASION);
+		
+		menu.add(ANIMATION);
+		menu.add(SQL);
+		menu.add(INVASION);
+	}
+	
+	private static void addListeners(AbstractButton ANIMATION, AbstractButton SQL, AbstractButton INVASION) {
+		
 		ANIMATION.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				animation = new Animation();
@@ -120,7 +103,6 @@ public class Main extends JFrame{
 			}
 		});
 		
-		SQL = new JMenuItem ("MySQL Project");
 		SQL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				database = new MySQL_Project();
@@ -132,7 +114,6 @@ public class Main extends JFrame{
 			
 		});
 		
-		INVASION = new JMenuItem ("Play a game");
 		INVASION.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				invasion = new Invasion();
@@ -143,10 +124,6 @@ public class Main extends JFrame{
 			}
 			
 		});
-		
-		menu.add(ANIMATION);
-		menu.add(SQL);
-		menu.add(INVASION);
 	}
 	
 }

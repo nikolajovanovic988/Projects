@@ -136,8 +136,6 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 			
 			if (e.getSource() == loadGame){
 				
-				saveGame = new Save();
-				saveGame.setTextName("Save.txt");
 				gameplay.setSavedShipsList(saveGame.getSave());
 			}
 			back = new JButton("exit");
@@ -187,7 +185,6 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 			
 		} else if(e.getSource() == save) { // save game
 			
-			saveGame.setTextName("Save.txt");
 			saveGame.setSave(gameplay.getSavedShipsList());
 		}
 		
