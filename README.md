@@ -6,7 +6,7 @@ I have few projects: "Project", "MyWeb", "Spring_Web_App". And I will say someth
 
 Project:
 
-  In this project there are 4 packages , one is main who organize panels and let you chose witch one you want to see. There is
+  In this project there are 4 packages , one is main that organize panels and let you chose witch one you want to see. There is
     Invasion, space invaders game, SQL JDBC and Animation. I will just talk about SQL JDBC, few directions for easy start.
   For SQL I used XAMPP Apache and made connection true bean "connect.xsm". I set up localhost with my local name and pass,
     before you start you need to change to your local name and pass or if you use ip then enter ip and name-pass. If that is 
