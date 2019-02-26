@@ -3,39 +3,29 @@ package MySQL.Project;
 import java.sql.*;
 import java.util.*;
 
-import javax.sql.DataSource;
 import javax.swing.JOptionPane;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class Communication {
 	
 	
-	private Connection conn;
+	
 	
 	private ArrayList<String> databaseList;
 	private ArrayList<String> tableList;
-	private boolean isconnected = false;
+	private boolean isconnected;
 	
-	
-	private DataSource dataSource;
+	private DoConnect doConnect;
 	private JdbcTemplate jdbcTemplate;
-	
-	public Communication() throws SQLException {
+	private Connection conn;
+
+	public Communication() {
 		
-		ApplicationContext context = new ClassPathXmlApplicationContext("connect.xml");
-		dataSource = (DataSource)context.getBean("dataSource");
-			
-		conn = dataSource.getConnection();
+	}
+	public void startConnection() {
+		jdbcTemplate = doConnect.getJdbcTemplate();
+		conn = doConnect.getConn();
 		isconnected = true;
-			
-		((ClassPathXmlApplicationContext) context).close();
-			
-		jdbcTemplate = new JdbcTemplate(dataSource);
-		
-		
 	}
 	
 	public void doSQLFunction(String action, String tableName, String databaseName, 
@@ -290,4 +280,12 @@ public class Communication {
 		return num;
 	}
 
+	public DoConnect getDoConnect() {
+		return doConnect;
+	}
+
+	public void setDoConnect(DoConnect doConnect) {
+		this.doConnect = doConnect;
+	}
+	
 }

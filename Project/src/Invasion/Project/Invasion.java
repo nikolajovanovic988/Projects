@@ -16,6 +16,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import MainProject.TextShow;
 
+
+
 public class Invasion extends JPanel implements ActionListener, KeyListener {
 
 	/**
@@ -31,7 +33,7 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 	private int buttonWidth = 120;
 	private Gameplay gameplay;
 	private TextShow textShow;
-	private HighScore hScore;
+	private HighScore hScore = new HighScore();
 	private Save saveGame;
 	
 	private String playerName;
@@ -40,14 +42,11 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 	
 	private ApplicationContext context;
 	
+
 	public Invasion() {
 		
 		setLayout(null);
 		setButtons();
-		
-		context = new ClassPathXmlApplicationContext("secondLineClasses.xml");
-		saveGame = (Save)context.getBean("save");
-		hScore = (HighScore)context.getBean("highScore");
 		
 		addKeyListener(this);
 		setFocusable(true);
@@ -88,7 +87,7 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 		super.paintComponent(g);
 		setBackground(g);
 		
-		if (gameplay != null) {
+		if (gameplay.play()) {
 			gameplay.paintComponenet(g);
 			if (gameplay.gameEnded()) {
 				
@@ -103,7 +102,7 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 				repaint();
 				
 			}
-		} else if (textShow != null) {
+		} else if (textShow.play()) {
 			textShow.move++;
 			textShow.paintComponent(g);
 		}
@@ -130,9 +129,10 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 			tm.start();
 			
 			playerName = JOptionPane.showInputDialog("Enter your name: ");
-			gameplay = (Gameplay)context.getBean("gameplay");
+			//gameplay = (Gameplay)context.getBean("gameplay");
 			gameplay.setWidth(getWidth());
 			gameplay.setHeight(getHeight());
+			gameplay.setPlay(true);
 			
 			if (e.getSource() == loadGame){
 				
@@ -159,10 +159,12 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 		} else if (e.getSource() == credits) {
 			this.removeAll();
 			tm.start();
-			if (textShow == null) {
-				textShow = (TextShow)context.getBean("textShow");
+			if (!textShow.play()) {
+				//textShow = (TextShow)context.getBean("textShow");
+				textShow.setPlay(true);
 				textShow.setTextName("Credits.txt");
 				textShow.setCords(30, getHeight() + 10, -10, 15, Color.WHITE);
+				textShow.move = 0;
 			}
 			back = new JButton("<-Back");
 			back.setBounds(20, 20, buttonWidth, buttonHeight);
@@ -170,15 +172,14 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 			add(back);
 			
 		} else if (e.getSource() == exit) {
-			((ClassPathXmlApplicationContext) context).close();
 			System.exit(0);
 		}
 		
 		// this action pr are for manipulation when you are in objects
 		
 		if (e.getSource() == back) { // return to menu
-			textShow = null;
-			gameplay = null;
+			textShow.setPlay(false);
+			gameplay.setPlay(false);
 			tm.stop();
 			this.removeAll();
 			setButtons();
@@ -217,5 +218,38 @@ public class Invasion extends JPanel implements ActionListener, KeyListener {
 		}
 		
 	}
+
+	public Save getSaveGame() {
+		return saveGame;
+	}
+
+	public void setSaveGame(Save saveGame) {
+		this.saveGame = saveGame;
+	}
+	
+	public TextShow getTextShow() {
+		return textShow;
+	}
+
+	public void setTextShow(TextShow textShow) {
+		this.textShow = textShow;
+	}
+
+	public HighScore gethScore() {
+		return hScore;
+	}
+
+	public void sethScore(HighScore hScore) {
+		this.hScore = hScore;
+	}
+
+	public Gameplay getGameplay() {
+		return gameplay;
+	}
+
+	public void setGameplay(Gameplay gameplay) {
+		this.gameplay = gameplay;
+	}
+	
 
 }

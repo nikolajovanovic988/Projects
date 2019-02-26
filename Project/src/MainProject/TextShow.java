@@ -24,11 +24,19 @@ public class TextShow extends TextRD {
 	private int fontSize;
 	private Color color;
 	
-	
+	private boolean play = false;
 	// Constructor, it will just read file that will be shown in frame.
 
 	public TextShow() {
 		
+	}
+	
+	public boolean play() {
+		return play;
+	}
+	
+	public void setPlay(boolean play) {
+		this.play = play;
 	}
 	
 	public void setTextName(String textName) {

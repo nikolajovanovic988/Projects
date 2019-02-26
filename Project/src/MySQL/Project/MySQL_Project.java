@@ -7,9 +7,6 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.table.TableColumnModel;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 public class MySQL_Project extends JPanel implements ActionListener {
 
 	/**
@@ -77,13 +74,8 @@ public class MySQL_Project extends JPanel implements ActionListener {
 	
 	public MySQL_Project() {
 		
-		ApplicationContext context = new ClassPathXmlApplicationContext("secondLineClasses.xml");
-		conn = (Communication)context.getBean("communication");
-		((ClassPathXmlApplicationContext) context).close();
-		
 		setBackground(Color.GRAY);
 		setLayout(new FlowLayout());
-		
 		
 		setDatabase();
 		tablePanel();
@@ -402,21 +394,34 @@ public class MySQL_Project extends JPanel implements ActionListener {
 	// this is where all magic happen :)
 	public void actionPerformed(ActionEvent e) {
 		
+		// Make connection and unlock buttons.
+		connect(e);
+	
+		// DATABASE
+		//Show list of databases tables in table
+		showListDBTables(e);
+		// Create/delete database, table, column, row. Update, Modify
+		createDeleteModify(e);
+		// Show list of databases in table	
+		showListDatabase (e);
+		
+		// TABLE
+		// Show list of data from table in table
+		showListTable (e);
+		// Insert new data row
+		insertRow (e);
+		
+		// SELECT
+		// Get selected columns, and show in table
+		getColumn (e);
+		
+	}
+	
+	private void connect (ActionEvent e) {
 		if(e.getSource() == connect) {
 			
-//			IP = JOptionPane.showInputDialog("Chose connection. Enter IP Address or 'localhost' ");
-//			if (IP.equals("")) {
-//				JOptionPane.showMessageDialog( null, "You need to enter IP Address or 'localhost' ");
-//				return;
-//			}
-//			username = JOptionPane.showInputDialog("Username:");
-//			if (username.equals("")) {
-//				JOptionPane.showMessageDialog( null, "You need to enter username ");
-//				return;
-//			}
-//			pass = JOptionPane.showInputDialog("Password:");
+			conn.startConnection();
 			
-				
 			if (conn.isConnected()) {
 				
 				
@@ -471,11 +476,9 @@ public class MySQL_Project extends JPanel implements ActionListener {
 			
 			
 		}
+	}
 	
-		
-		
-		// DATABASE
-		//Show list of databases tables in table
+	private void showListDBTables (ActionEvent e) {
 		if (e.getSource() == databaseField || e.getSource() == getTableDBListField || e.getSource() == ok || e.getSource() == getTableList ) {
 			
 			if (e.getSource() == databaseField ) {
@@ -512,9 +515,11 @@ public class MySQL_Project extends JPanel implements ActionListener {
 					JOptionPane.showMessageDialog( null, "Database you entered does not exist");
 				}
 			}
-			
-		// Create/delete database, table, column, row. Update, Modify
-		} else if (e.getSource() == createDB || e.getSource() == deleteDB 
+		}
+	}
+	
+	private void createDeleteModify (ActionEvent e) {
+		if (e.getSource() == createDB || e.getSource() == deleteDB 
 				|| e.getSource() == createTable || e.getSource() == deleteTable
 				|| e.getSource() == drop || e.getSource() == add || e.getSource() == deleteRow
 				|| e.getSource() == modify || e.getSource() == update) {
@@ -539,20 +544,20 @@ public class MySQL_Project extends JPanel implements ActionListener {
 				column = conn.getTableColumnList(tableField.getText(), databaseField.getText());
 				row = conn.getTableRowList(tableField.getText(), databaseField.getText(), column);
 				setTable(row, column);
+				}
 			}
-			
-			
-			
-		// Show list of databases in table	
-		} else if (e.getSource() == getDBList || e.getSource() == getDB) {
+	}
+	
+	private void showListDatabase (ActionEvent e) {
+		if (e.getSource() == getDBList || e.getSource() == getDB) {
 			databaseList = conn.getDatabaseList();
 			
 			setTable(conn.getTableList(databaseList, columnDatabase.length), columnDatabase); // print table on right panel
 			databaseField.requestFocus();
 		}
-		
-		// TABLE
-		// Show list of data from table in table
+	}
+	
+	private void showListTable (ActionEvent e) {
 		if (e.getSource() == tableField || e.getSource() == selectTable || e.getSource() == showTableField || e.getSource() == showTable) {
 			
 			if (e.getSource() == showTableField || e.getSource() == showTable) {
@@ -582,8 +587,34 @@ public class MySQL_Project extends JPanel implements ActionListener {
 				
 			}
 		}
-		
-		// Insert new data row
+	}
+	
+	private void getColumn (ActionEvent e) {
+		if (e.getSource() == colimnListSelect || e.getSource() == getTable) {
+			
+			if (getTableDBListField.getText().equals("") || showTableField.getText().equals("")) {
+				JOptionPane.showMessageDialog( null, "Your database field or table field is empty");
+			} else if (!databaseList.contains(getTableDBListField.getText())) {
+				JOptionPane.showMessageDialog( null, "The database name does not exist");
+			} else if (!tableList.contains(showTableField.getText())) {
+				JOptionPane.showMessageDialog( null, "Table name does not exist");
+			} else {
+				
+				ArrayList <String> str = new ArrayList<String>();
+				
+				StringTokenizer tokenizer = new StringTokenizer(colimnListSelect.getText(),", ");
+				while (tokenizer.hasMoreTokens()) {
+					str.add(tokenizer.nextToken());
+				}
+				
+				String[] columnNames = str.toArray(new String[str.size()]);
+				String[][] columnRows = conn.getTableRowList(showTableField.getText(), getTableDBListField.getText(), columnNames);
+				
+				setTable(columnRows, columnNames); // print table on right panel
+			}
+		}
+	}
+	private void insertRow (ActionEvent e) {
 		if (e.getSource() == insert) {
 			
 			if (databaseField.getText().equals("") || tableField.getText().equals("")) {
@@ -627,32 +658,14 @@ public class MySQL_Project extends JPanel implements ActionListener {
 				setTable(row, column); // print table on right panel
 			}
 		}
-		
-		// SELECT
-		//Get selected columns, and show in table
-		if (e.getSource() == colimnListSelect || e.getSource() == getTable) {
-			
-			if (getTableDBListField.getText().equals("") || showTableField.getText().equals("")) {
-				JOptionPane.showMessageDialog( null, "Your database field or table field is empty");
-			} else if (!databaseList.contains(getTableDBListField.getText())) {
-				JOptionPane.showMessageDialog( null, "The database name does not exist");
-			} else if (!tableList.contains(showTableField.getText())) {
-				JOptionPane.showMessageDialog( null, "Table name does not exist");
-			} else {
-				
-				ArrayList <String> str = new ArrayList<String>();
-				
-				StringTokenizer tokenizer = new StringTokenizer(colimnListSelect.getText(),", ");
-				while (tokenizer.hasMoreTokens()) {
-					str.add(tokenizer.nextToken());
-				}
-				
-				String[] columnNames = str.toArray(new String[str.size()]);
-				String[][] columnRows = conn.getTableRowList(showTableField.getText(), getTableDBListField.getText(), columnNames);
-				
-				setTable(columnRows, columnNames); // print table on right panel
-			}
-		}
-		
 	}
+
+	public Communication getConn() {
+		return conn;
+	}
+
+	public void setConn(Communication conn) {
+		this.conn = conn;
+	}
+	
 }

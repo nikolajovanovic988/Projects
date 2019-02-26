@@ -36,8 +36,16 @@ public class Gameplay extends JPanel implements ActionListener {
 	private int time = 0;
 	private int missileNum = 0;
 	
+	private boolean play = false;
+	
 	public Gameplay () {
 		
+	}
+	public void setPlay(boolean play) {
+		this.play = play;
+	}
+	public boolean play() {
+		return play;
 	}
 	
 	public void setWidth(int width) {

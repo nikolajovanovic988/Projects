@@ -1,10 +1,20 @@
 package MainProject;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.AbstractButton;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import Animation.Project.Animation;
 import Invasion.Project.Invasion;
@@ -67,7 +77,11 @@ public class Main extends JFrame{
 	
 	public static void start () {
 		//window.setContentPane(animation);
-		
+		ApplicationContext context = new ClassPathXmlApplicationContext("/beanPackage/beans.xml");
+		animation = (Animation)context.getBean("animation");
+		database = (MySQL_Project)context.getBean("mysql_project");
+		invasion = (Invasion)context.getBean("invasion");
+		((ClassPathXmlApplicationContext) context).close();
 		actionListeners();
 	}
 	
@@ -95,20 +109,22 @@ public class Main extends JFrame{
 		
 		ANIMATION.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				animation = new Animation();
+				//animation = new Animation();
 				checkIfLocalSelected = true;
 				window.getContentPane().removeAll();
 				window.setContentPane(animation);
+				start ();
 				window.revalidate();
 			}
 		});
 		
 		SQL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				database = new MySQL_Project();
+				//database = new MySQL_Project();
 				checkIfLocalSelected = true;
 				window.getContentPane().removeAll();
 				window.setContentPane(database);
+				start ();
 				window.revalidate();
 			}
 			
@@ -116,10 +132,11 @@ public class Main extends JFrame{
 		
 		INVASION.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				invasion = new Invasion();
+				//invasion = new Invasion();
 				checkIfLocalSelected = true;
 				window.getContentPane().removeAll();
 				window.setContentPane(invasion);
+				start ();
 				window.revalidate();
 			}
 			

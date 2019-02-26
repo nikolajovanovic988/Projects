@@ -5,9 +5,6 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.Timer;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 import MainProject.TextShow;
 
 public class Animation extends JPanel implements ActionListener {
@@ -24,13 +21,9 @@ public class Animation extends JPanel implements ActionListener {
 	private boolean clickToStart = true; // for Label "Click to start"
 	private String clickToStartString = "Click to start";
 	
+	
 	public Animation() {
 		
-		ApplicationContext context = new ClassPathXmlApplicationContext("secondLineClasses.xml");
-		walker = (Walker)context.getBean("walker");
-		setup = (Setup)context.getBean("setup");
-		frame = (TextShow)context.getBean("textShow");
-		((ClassPathXmlApplicationContext) context).close();
 		
 		// when mouse is pressed focus is gained.
 		addMouseListener( new MouseAdapter() {
@@ -167,6 +160,30 @@ public class Animation extends JPanel implements ActionListener {
 		
 		
 		repaint();
+	}
+	
+	public Walker getWalker() {
+		return walker;
+	}
+
+	public void setWalker(Walker walker) {
+		this.walker = walker;
+	}
+
+	public Setup getSetup() {
+		return setup;
+	}
+
+	public void setSetup(Setup setup) {
+		this.setup = setup;
+	}
+
+	public TextShow getFrame() {
+		return frame;
+	}
+
+	public void setFrame(TextShow frame) {
+		this.frame = frame;
 	}
 	
 }

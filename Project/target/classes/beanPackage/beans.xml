@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+	<bean id="animation" class="Animation.Project.Animation">
+		<property name="setup" ref="setup"></property>
+		<property name="walker" ref="walker"></property>
+		<property name="frame" ref="textShow"></property>
+	</bean>
+	<bean id="setup" class="Animation.Project.Setup"></bean>
+	<bean id="walker" class="Animation.Project.Walker"></bean>
+	
+
+
+	<bean id="mysql_project" class="MySQL.Project.MySQL_Project">
+		<property name="conn" ref="communication"></property>
+	</bean>
+	<bean id="communication" class="MySQL.Project.Communication">
+		<property name="doConnect" ref="doConnect"></property>
+	</bean>
+	<bean id="doConnect" class="MySQL.Project.DoConnect"></bean>
+
+
+	<bean id="invasion" class="Invasion.Project.Invasion">
+		<property name="saveGame" ref="saveGame"></property>
+		<property name="textShow" ref="textShow"></property>
+		<property name="gameplay" ref="gamePlay"></property>
+	</bean>
+	<bean id="saveGame" class="Invasion.Project.Save">
+		<property name="textName" value="Save.txt"></property>
+	</bean>
+	<bean id="gamePlay" class="Invasion.Project.Gameplay"></bean>
+	
+	<bean id="textShow" class="MainProject.TextShow"></bean>
+</beans>

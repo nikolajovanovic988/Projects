@@ -41,11 +41,11 @@ public class TextRD {
 	}
 	
 	// Write into file
-	public void wrieIntoFile(String newScore) {
+	public void wrieIntoFile(String newLine) {
 		
 		ArrayList<String> arr = readFromFile();
 		
-		arr.add(newScore);
+		arr.add(newLine);
 		
 		PrintWriter wrf;
 		

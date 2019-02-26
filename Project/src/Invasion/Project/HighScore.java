@@ -10,6 +10,7 @@ import javax.swing.table.TableColumnModel;
 
 import MainProject.TextRD;
 
+
 public class HighScore extends TextRD {
 	
 
@@ -26,8 +27,6 @@ public class HighScore extends TextRD {
 	public void setTextName(String textName) {
 		super.setTextName(textName);
 	}
-
-
 
 	public void setScore(String score) {
 		wrieIntoFile(score);
