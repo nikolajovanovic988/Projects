@@ -11,6 +11,7 @@ Project:
   For SQL I used XAMPP Apache and made connection true bean "connect.xsm". I set up localhost with my local name and pass,
     before you start you need to change to your local name and pass or if you use ip then enter ip and name-pass. If that is 
     good then all should run just fine. And if you have some exceptions then you did not set up right.
+  THE PROJECT WAS NOT BUILT IN ANY DESIGN PATTERN, BECAUSE I DID NOT ATTEND THAT COURSE AT THAT TIME I WAS BUILDING IT. It is time taking and really hard now to rebuild it.
     
 MyWeb:
 
