@@ -6,34 +6,34 @@
 
 
 
-	<bean id="animation" class="Animation.Project.Animation">
+	<bean id="animation" class="animation.Animation">
 		<property name="setup" ref="setup"></property>
 		<property name="walker" ref="walker"></property>
 		<property name="frame" ref="textShow"></property>
 	</bean>
-	<bean id="setup" class="Animation.Project.Setup"></bean>
-	<bean id="walker" class="Animation.Project.Walker"></bean>
+	<bean id="setup" class="animation.Setup"></bean>
+	<bean id="walker" class="animation.Walker"></bean>
 	
 
 
-	<bean id="mysql_project" class="MySQL.Project.MySQL_Project">
+	<bean id="mysql_project" class="SQL.MySQL_Project">
 		<property name="conn" ref="communication"></property>
 	</bean>
-	<bean id="communication" class="MySQL.Project.Communication">
+	<bean id="communication" class="SQL.Communication">
 		<property name="doConnect" ref="doConnect"></property>
 	</bean>
-	<bean id="doConnect" class="MySQL.Project.DoConnect"></bean>
+	<bean id="doConnect" class="SQL.DoConnect"></bean>
 
 
-	<bean id="invasion" class="Invasion.Project.Invasion">
+	<bean id="invasion" class="invasion.Invasion">
 		<property name="saveGame" ref="saveGame"></property>
 		<property name="textShow" ref="textShow"></property>
 		<property name="gameplay" ref="gamePlay"></property>
 	</bean>
-	<bean id="saveGame" class="Invasion.Project.Save">
+	<bean id="saveGame" class="invasion.Save">
 		<property name="textName" value="Save.txt"></property>
 	</bean>
-	<bean id="gamePlay" class="Invasion.Project.Gameplay"></bean>
+	<bean id="gamePlay" class="invasion.Gameplay"></bean>
 	
-	<bean id="textShow" class="MainProject.TextShow"></bean>
+	<bean id="textShow" class="main.view.TextShow"></bean>
 </beans>

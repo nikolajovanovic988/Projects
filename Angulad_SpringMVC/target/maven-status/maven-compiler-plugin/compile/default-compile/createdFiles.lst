@@ -1,0 +1,4 @@
+com/angular/mvc/spring/config/AppConfig.class
+com/angular/mvc/spring/config/WebConfig.class
+com/angular/mvc/spring/config/MyWebAppInitializer.class
+com/angular/mvc/spring/model/Book.class
