@@ -23,17 +23,6 @@
 		<property name="doConnect" ref="doConnect"></property>
 	</bean>
 	<bean id="doConnect" class="SQL.DoConnect"></bean>
-
-
-	<bean id="invasion" class="invasion.Invasion">
-		<property name="saveGame" ref="saveGame"></property>
-		<property name="textShow" ref="textShow"></property>
-		<property name="gameplay" ref="gamePlay"></property>
-	</bean>
-	<bean id="saveGame" class="invasion.Save">
-		<property name="textName" value="Save.txt"></property>
-	</bean>
-	<bean id="gamePlay" class="invasion.Gameplay"></bean>
 	
 	<bean id="textShow" class="main.view.TextShow"></bean>
 </beans>

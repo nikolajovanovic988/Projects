@@ -2,7 +2,6 @@ package com.appsdeveloperblog.ws.controller;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -25,7 +24,6 @@ import com.appsdeveloperblog.ws.model.request.UpdateUserDetailsRequestModel;
 import com.appsdeveloperblog.ws.model.request.UserDetailsRequestModel;
 import com.appsdeveloperblog.ws.model.response.UserRest;
 import com.appsdeveloperblog.ws.userservice.UserService;
-import com.appsdeveloperblog.ws.userservice.impl.UserServiceImp;
 
 @RestController
 @RequestMapping("users") // http://localhost:8080/users

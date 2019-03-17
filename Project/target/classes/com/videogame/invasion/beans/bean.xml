@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="shipsFactory"
+		class="com.videogame.invasion.view.play.ShipsFactory">
+		<property name="playerShip" ref="playerShip"></property>
+		<property name="enemyShip" ref="enemyShip"></property>
+	</bean>
+	<bean id="playerShip"
+		class="com.videogame.invasion.view.play.PlayerShip">
+	</bean>
+	<bean id="enemyShip"
+		class="com.videogame.invasion.view.play.EnemyShip">
+	</bean>
+
+
+
+	<bean id="controller"
+		class="com.videogame.invasion.controller.Controller">
+		<constructor-arg index="model" name="model"></constructor-arg>
+		<constructor-arg index="frame" name="frame"></constructor-arg>
+	</bean>
+
+
+	<bean id="manu" class="com.videogame.invasion.view.Manu">
+		<property name="controller" ref="controller"></property>
+		<property name="creditsView" ref="creditsView"></property>
+		<property name="highScoreView" ref="highScoreView"></property>
+		<property name="play" ref="play"></property>
+	</bean>
+	<bean id="model" class="com.videogame.invasion.model.Model"></bean>
+	<bean id="highScoreView"
+		class="com.videogame.invasion.view.HighScoreView">
+	</bean>
+	<bean id="creditsView"
+		class="com.videogame.invasion.view.CreditsView">
+	</bean>
+	<bean id="play" class="com.videogame.invasion.view.play.Play"></bean>
+	
+	
+	<bean id="frame" class="com.videogame.invasion.view.Frame">
+		<property name="container" ref="manu"></property>
+	</bean>
+</beans>

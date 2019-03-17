@@ -18,7 +18,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import SQL.MySQL_Project;
 import animation.Animation;
-import invasion.Invasion;
 
 public class Main extends JFrame{
 
@@ -30,7 +29,6 @@ public class Main extends JFrame{
 	public static JMenuBar menubar;
 	
 	public static Animation animation;
-	public static Invasion invasion;
 	public static MySQL_Project database;
 	
 	public static boolean checkIfLocalSelected = false;
@@ -80,7 +78,6 @@ public class Main extends JFrame{
 		ApplicationContext context = new ClassPathXmlApplicationContext("/beanPackage/beans.xml");
 		animation = (Animation)context.getBean("animation");
 		database = (MySQL_Project)context.getBean("mysql_project");
-		invasion = (Invasion)context.getBean("invasion");
 		((ClassPathXmlApplicationContext) context).close();
 		actionListeners();
 	}
@@ -124,18 +121,6 @@ public class Main extends JFrame{
 				checkIfLocalSelected = true;
 				window.getContentPane().removeAll();
 				window.setContentPane(database);
-				start ();
-				window.revalidate();
-			}
-			
-		});
-		
-		INVASION.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//invasion = new Invasion();
-				checkIfLocalSelected = true;
-				window.getContentPane().removeAll();
-				window.setContentPane(invasion);
 				start ();
 				window.revalidate();
 			}

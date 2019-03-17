@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="controller"
+		class="com.videogame.invasion.controller.Controller">
+		<property name="model" ref="model"></property>
+		<property name="frame" ref="frame"></property>
+	</bean>
+
+
+
+	<bean id="frame" class="com.videogame.invasion.view.Frame">
+		<constructor-arg name="container" ref="container"></constructor-arg>
+	</bean>
+	<bean id="container" class="com.videogame.invasion.view.Menu">
+		<property name="play" ref="play"></property>
+		<property name="creditsView" ref="creditsView"></property>
+		<property name="highScoreView" ref="highScoreView"></property>
+	</bean>
+	<bean id="creditsView"
+		class="com.videogame.invasion.view.CreditsView">
+	</bean>
+	<bean id="highScoreView"
+		class="com.videogame.invasion.view.HighScoreView">
+	</bean>
+	<bean id="play" class="com.videogame.invasion.view.play.Play">
+		<property name="shipsFactory" ref="shipsFactory"></property>
+	</bean>
+
+	<bean id="shipsFactory"
+		class="com.videogame.invasion.view.play.ShipsFactory">
+		<property name="enemyShip" ref="enemyShip"></property>
+		<property name="playerShip" ref="playerShip"></property>
+	</bean>
+	<bean id="playerShip"
+		class="com.videogame.invasion.view.play.PlayerShip">
+	</bean>
+	<bean id="enemyShip"
+		class="com.videogame.invasion.view.play.EnemyShip">
+	</bean>
+
+
+
+	<bean id="model" class="com.videogame.invasion.model.Model">
+		<property name="save" ref="save"></property>
+		<property name="load" ref="load"></property>
+		<property name="loadHighScore" ref="loadHighScore"></property>
+		<property name="saveHighScore" ref="saveHighScore"></property>
+		<property name="credits" ref="credits"></property>
+	</bean>
+	<bean id="save" class="com.videogame.invasion.model.SaveGame"></bean>
+	<bean id="load" class="com.videogame.invasion.model.LoadGame"></bean>
+	<bean id="loadHighScore"
+		class="com.videogame.invasion.model.LoadHighScore">
+	</bean>
+	<bean id="saveHighScore"
+		class="com.videogame.invasion.model.SaveHighScore">
+	</bean>
+	<bean id="credits" class="com.videogame.invasion.model.Credits">
+	</bean>
+
+
+</beans>
