@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="controller" class="com.jdbc.sql.controller.Controller">
+		<property name="frame" ref="frame"></property>
+		<property name="model" ref="model"></property>
+	</bean>
+
+
+
+	<bean id="frame" class="com.jdbc.sql.view.Frame">
+		<constructor-arg name="view" ref="view"></constructor-arg>
+	</bean>
+	<bean id="view" class="com.jdbc.sql.view.View"></bean>
+
+
+	<bean id="model" class="com.jdbc.sql.model.Model"></bean>
+
+
+
+
+</beans>

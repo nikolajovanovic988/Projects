@@ -5,17 +5,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-
-	<bean id="animation" class="animation.Animation">
-		<property name="setup" ref="setup"></property>
-		<property name="walker" ref="walker"></property>
-		<property name="frame" ref="textShow"></property>
-	</bean>
-	<bean id="setup" class="animation.Setup"></bean>
-	<bean id="walker" class="animation.Walker"></bean>
-	
-
-
 	<bean id="mysql_project" class="SQL.MySQL_Project">
 		<property name="conn" ref="communication"></property>
 	</bean>

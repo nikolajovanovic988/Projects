@@ -17,7 +17,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import SQL.MySQL_Project;
-import animation.Animation;
 
 public class Main extends JFrame{
 
@@ -28,7 +27,6 @@ public class Main extends JFrame{
 	public static JFrame window;
 	public static JMenuBar menubar;
 	
-	public static Animation animation;
 	public static MySQL_Project database;
 	
 	public static boolean checkIfLocalSelected = false;
@@ -76,7 +74,6 @@ public class Main extends JFrame{
 	public static void start () {
 		//window.setContentPane(animation);
 		ApplicationContext context = new ClassPathXmlApplicationContext("/beanPackage/beans.xml");
-		animation = (Animation)context.getBean("animation");
 		database = (MySQL_Project)context.getBean("mysql_project");
 		((ClassPathXmlApplicationContext) context).close();
 		actionListeners();
@@ -103,17 +100,6 @@ public class Main extends JFrame{
 	}
 	
 	private static void addListeners(AbstractButton ANIMATION, AbstractButton SQL, AbstractButton INVASION) {
-		
-		ANIMATION.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//animation = new Animation();
-				checkIfLocalSelected = true;
-				window.getContentPane().removeAll();
-				window.setContentPane(animation);
-				start ();
-				window.revalidate();
-			}
-		});
 		
 		SQL.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
