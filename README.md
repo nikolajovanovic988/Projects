@@ -1,16 +1,18 @@
 
 Dear visitor,
 
-Before you start looking true my projects you should know few things :).
-I have few projects: "Project", "MyWeb", "Spring_Web_App". And I will say something for each of them.
+Welcoe to my Github repositorie.
 
-Project:
+Projects I have are listed below. Base description is provided for each of them.
 
-  In this project there are 4 packages , in close future :) I will devide them to be separate.
-  For SQL I used XAMPP Apache and made connection true bean "connect.xml". I set up localhost with my local name and pass,
-    before you start you need to change to your local name and pass or if you use ip then enter ip and name-pass. If that is 
-    good then all should run just fine.
-    
+my-JDBC-app:
+   
+
+ 
+Invasion:
+
+	Video game base on "Space Invaders". From design patterns I used MVC and Factory. Using txt document to save game.
+
 MyWeb:
 
   Standard servlet classes that use request and response, JSP file, Tomcat server. I did not want to save data or to expend more.
