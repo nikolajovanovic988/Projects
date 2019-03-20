@@ -7,7 +7,8 @@ Projects I have are listed below. Base description is provided for each of them.
 
 my-JDBC-app:
    
-
+Project:
+	Current SQL-JDBC project, building it in design patterns. New my-JDBC-app.
  
 Invasion:
 

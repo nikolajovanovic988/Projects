@@ -10,12 +10,18 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public class DoConnect {
 
+//	public static DoConnect instance = new DoConnect();
+
 	@Autowired
 	private DataSource dataSource;
-	
+
 	private Connection conn;
 	private JdbcTemplate jdbcTemplate;
 
+//	public DoConnect getInstance() {
+//		return instance;
+//	}
+	
 //	public DoConnect() {
 //		try {
 //			conn = dataSource.getConnection();
@@ -25,7 +31,7 @@ public class DoConnect {
 //			e.printStackTrace();
 //		}
 //	}
-	
+
 	public DataSource getDataSource() {
 		return dataSource;
 	}
@@ -38,7 +44,6 @@ public class DoConnect {
 		try {
 			conn = dataSource.getConnection();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return conn;
