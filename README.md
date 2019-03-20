@@ -9,11 +9,11 @@ my-JDBC-app:
    
 Project:
 
-    Current SQL-JDBC project, building it in design patterns. New my-JDBC-app.
+   Current SQL-JDBC project, building it in design patterns. New my-JDBC-app.
  
 Invasion:
 
-    Video game base on "Space Invaders". From design patterns I used MVC and Factory. Using txt document to save game.
+   Video game base on "Space Invaders". From design patterns I used MVC and Factory. Using txt document to save game.
 
 MyWeb:
 
