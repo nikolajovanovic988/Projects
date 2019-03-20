@@ -1,7 +1,7 @@
 
 Dear visitor,
 
-Welcoe to my Github repositorie.
+Welcome to my Github repositorie.
 
 Projects I have are listed below. Base description is provided for each of them.
 
