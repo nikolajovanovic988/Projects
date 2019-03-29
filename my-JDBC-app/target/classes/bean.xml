@@ -17,9 +17,30 @@
 	<bean id="view" class="com.jdbc.sql.view.View"></bean>
 
 
-	<bean id="model" class="com.jdbc.sql.model.Model"></bean>
+	<bean id="model" class="com.jdbc.sql.model.Model">
+		<property name="table" ref="table"></property>
+	</bean>
+	<bean id="table" class="com.jdbc.sql.model.table.Table">
 
+		<property name="tableList" ref="tableList"></property>
+		<property name="tablesData" ref="tablesData"></property>
+		<property name="databaseList" ref="databaseList"></property>
+		<property name="select" ref="select"></property>
+	</bean>
+	<bean id="databaseList"
+		class="com.jdbc.sql.model.table.DatabaseList">
+		<constructor-arg name="doConnect" ref="doConnect"></constructor-arg>
+	</bean>
+	<bean id="tableList" class="com.jdbc.sql.model.table.TableList">
+		<constructor-arg name="doConnect" ref="doConnect"></constructor-arg>
+	</bean>
+	<bean id="tablesData" class="com.jdbc.sql.model.table.TablesData">
+		<constructor-arg name="doConnect" ref="doConnect"></constructor-arg>
+	</bean>
+	<bean id="select" class="com.jdbc.sql.model.table.Select">
+		<constructor-arg name="doConnect" ref="doConnect"></constructor-arg>
+	</bean>
 
-
+	<bean id="doConnect" class="com.jdbc.sql.model.table.DoConnect"></bean>
 
 </beans>

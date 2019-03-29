@@ -8,15 +8,19 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableColumnModel;
+
+import com.jdbc.sql.controller.Controller;
 
 public class View extends JPanel implements ActionListener {
 
@@ -70,13 +74,15 @@ public class View extends JPanel implements ActionListener {
 	public String[] columnDatabase = new String[] { "id", "Databases" }; // setup for begining
 	public String[] columnTables = new String[] { "id", "Tables" }; // setup for begining
 
-	public static String IP;
-	public static String username;
-	public static String pass;
+//	public static String IP;
+//	public static String username;
+//	public static String pass;
 
 	// public Communication conn;
 	public ArrayList<String> databaseList;
 	public ArrayList<String> tableList;
+
+	private Controller controller;
 
 	public View() {
 
@@ -150,7 +156,7 @@ public class View extends JPanel implements ActionListener {
 		panelFive();
 		panelSix();
 
-		setTable(new String[][] { { "1", "" } }, new String[] { "id", "Name" });
+		// setTable(new String[][] { { "1", "" } }, new String[] { "id", "Name" });
 
 		tablePanel.add(leftTablePanel);
 		tablePanel.add(rightTablePanel);
@@ -178,6 +184,7 @@ public class View extends JPanel implements ActionListener {
 		getDB.addActionListener(this);
 		getTableList.addActionListener(this);
 		showTable.addActionListener(this);
+
 		getDB.setEnabled(false);
 		getTableList.setEnabled(false);
 		showTable.setEnabled(false);
@@ -187,6 +194,7 @@ public class View extends JPanel implements ActionListener {
 
 		getTableDBListField.addActionListener(this);
 		showTableField.addActionListener(this);
+
 		getTableDBListField.setEnabled(false);
 		showTableField.setEnabled(false);
 
@@ -209,6 +217,7 @@ public class View extends JPanel implements ActionListener {
 
 		getTable.addActionListener(this);
 		colimnListSelect.addActionListener(this);
+
 		getTable.setEnabled(false);
 		colimnListSelect.setEnabled(false);
 
@@ -231,6 +240,7 @@ public class View extends JPanel implements ActionListener {
 		selectTable.addActionListener(this);
 		createTable.addActionListener(this);
 		deleteTable.addActionListener(this);
+
 		tableField.setEnabled(false);
 		selectTable.setEnabled(false);
 		createTable.setEnabled(false);
@@ -259,6 +269,7 @@ public class View extends JPanel implements ActionListener {
 		add.addActionListener(this);
 		dataTypeAdd.addActionListener(this);
 		drop.addActionListener(this);
+
 		columnField.setEnabled(false);
 		add.setEnabled(false);
 		dataTypeAdd.setEnabled(false);
@@ -286,6 +297,7 @@ public class View extends JPanel implements ActionListener {
 		dataTypeModify.addItem("date");
 
 		modify.addActionListener(this);
+
 		modify.setEnabled(false);
 		modifyField.setEnabled(false);
 		modifyFieldNew.setEnabled(false);
@@ -329,6 +341,7 @@ public class View extends JPanel implements ActionListener {
 		update = new JButton("Update col.");
 
 		update.addActionListener(this);
+
 		update.setEnabled(false);
 		conditionNameUpdate.setEnabled(false);
 		conditionValue.setEnabled(false);
@@ -353,6 +366,7 @@ public class View extends JPanel implements ActionListener {
 
 		deleteRow.addActionListener(this);
 		insert.addActionListener(this);
+
 		deleteRow.setEnabled(false);
 		insert.setEnabled(false);
 		rowCondition.setEnabled(false);
@@ -367,16 +381,16 @@ public class View extends JPanel implements ActionListener {
 
 	}
 
-	public void setTable(String[][] data, String[] columnNames) {
+	public void setTable(JTable table, String[] columnNames) {
 
-		if (table != null)
+		if (this.table != null)
 			rightTablePanel.removeAll();
 
-		table = new JTable(data, columnNames);
-		table.setPreferredScrollableViewportSize(new Dimension(380, 200));
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		this.table = table;
+		this.table.setPreferredScrollableViewportSize(new Dimension(420, 200));
+		this.table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-		TableColumnModel columnModel = table.getColumnModel();
+		TableColumnModel columnModel = this.table.getColumnModel();
 		for (int i = 0; i < columnNames.length; i++) {
 			if (i < columnModel.getColumnCount()) {
 				columnModel.getColumn(i).setMaxWidth(200);
@@ -393,8 +407,234 @@ public class View extends JPanel implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+	public void actionPerformed(ActionEvent e) {
 
+		// Make connection and unlock buttons.
+		connect(e);
+
+		// DATABASE
+		// Show list of databases tables in table
+		showDatabaseAndTableTablesList(e);
+
+//		// Create/delete database, table, column, row. Update, Modify
+		createDeleteModify(e);
+//		
+//		// TABLE
+//		// Show list of data from table in table
+		showTableList(e);
+//		
+//		// Insert new data row
+		insertRow(e);
+//
+//		// SELECT
+//		// Get selected columns, and show in table
+		getColumn(e);
+
+	}
+
+	private void connect(ActionEvent e) {
+		if (e.getSource() == connect) {
+
+			JOptionPane.showMessageDialog(null, "Connected");
+
+			databaseField.setEnabled(true);
+			ok.setEnabled(true);
+			createDB.setEnabled(true);
+			deleteDB.setEnabled(true);
+			getDBList.setEnabled(true);
+			databaseField.requestFocus();
+
+			getDB.setEnabled(true);
+			getTableList.setEnabled(true);
+			showTable.setEnabled(true);
+			getTableDBListField.setEnabled(true);
+			showTableField.setEnabled(true);
+			getTable.setEnabled(true);
+			colimnListSelect.setEnabled(true);
+
+			tableField.setEnabled(true);
+			selectTable.setEnabled(true);
+			createTable.setEnabled(true);
+			deleteTable.setEnabled(true);
+			columnField.setEnabled(true);
+			add.setEnabled(true);
+			dataTypeAdd.setEnabled(true);
+			drop.setEnabled(true);
+			modify.setEnabled(true);
+			update.setEnabled(true);
+			deleteRow.setEnabled(true);
+			insert.setEnabled(true);
+			conditionNameUpdate.setEnabled(true);
+			conditionValue.setEnabled(true);
+			rowCondition.setEnabled(true);
+			rowValue.setEnabled(true);
+			columnNameUpdate.setEnabled(true);
+			columnValue.setEnabled(true);
+			modifyField.setEnabled(true);
+			modifyFieldNew.setEnabled(true);
+			dataTypeModify.setEnabled(true);
+
+			setTable(controller.getModel().getTable().getDatabaseList().getTable(),
+					controller.getModel().getTable().getDatabaseList().getColumnList()); // print table on right panel
+
+			databaseField.requestFocus();
+
+		}
+
+	}
+
+	private void showDatabaseAndTableTablesList(ActionEvent e) {
+
+		if (e.getSource() == databaseField || e.getSource() == ok) {
+			setTable(controller.getModel().getTable().getTableList().getTable(databaseField.getText()),
+					controller.getModel().getTable().getTableList().getColumnList()); // print table on right panel
+
+		} else if (e.getSource() == getTableDBListField || e.getSource() == getTableList) {
+			setTable(controller.getModel().getTable().getTableList().getTable(getTableDBListField.getText()),
+					controller.getModel().getTable().getTableList().getColumnList()); // print table on right panel
+
+		} else if (e.getSource() == getDBList || e.getSource() == getDB) {
+			setTable(controller.getModel().getTable().getDatabaseList().getTable(),
+					controller.getModel().getTable().getDatabaseList().getColumnList()); // print table on right panel
+			databaseField.requestFocus();
+
+		}
+
+	}
+
+	private void createDeleteModify(ActionEvent e) {
+		if (e.getSource() == createDB) {
+			controller.getModel().getTable().getDatabaseList().newDatabase(databaseField.getText());
+			setTable(controller.getModel().getTable().getDatabaseList().getTable(),
+					controller.getModel().getTable().getDatabaseList().getColumnList()); // print table on right panel
+
+		} else if (e.getSource() == deleteDB) {
+			controller.getModel().getTable().getDatabaseList().deleteDatabase(databaseField.getText());
+			setTable(controller.getModel().getTable().getDatabaseList().getTable(),
+					controller.getModel().getTable().getDatabaseList().getColumnList()); // print table on right panel
+
+		} else if (e.getSource() == createTable) {
+			controller.getModel().getTable().getTableList().newTable(databaseField.getText(), tableField.getText());
+			setTable(controller.getModel().getTable().getTableList().getTable(databaseField.getText()),
+					controller.getModel().getTable().getTableList().getColumnList()); // print table on right panel
+
+		} else if (e.getSource() == deleteTable) {
+			controller.getModel().getTable().getTableList().deleteTable(databaseField.getText(), tableField.getText());
+			setTable(controller.getModel().getTable().getTableList().getTable(databaseField.getText()),
+					controller.getModel().getTable().getTableList().getColumnList()); // print table on right panel
+
+		} else if (e.getSource() == drop) {
+			controller.getModel().getTable().getTablesData().deleteColumn(databaseField.getText(), tableField.getText(),
+					columnField.getText());
+			setTable(controller.getModel().getTable().getTablesData().getTable(databaseField.getText(),
+					tableField.getText()),controller.getModel().getTable().getTablesData().getTableColumnList(databaseField.getText(),
+					tableField.getText())); // print table on right panel
+
+		} else if (e.getSource() == add) {
+			controller.getModel().getTable().getTablesData().addColumn(databaseField.getText(), tableField.getText(),
+					columnField.getText(), dataTypeAdd.getSelectedItem().toString());
+			setTable(controller.getModel().getTable().getTablesData().getTable(databaseField.getText(),
+					tableField.getText()), controller.getModel().getTable().getTablesData().getTableColumnList(databaseField.getText(),
+					tableField.getText())); // print table on right panel
+
+		} else if (e.getSource() == deleteRow) {
+			controller.getModel().getTable().getTablesData().deleteRow(databaseField.getText(), tableField.getText(),
+					rowCondition.getText(), rowValue.getText());
+			setTable(controller.getModel().getTable().getTablesData().getTable(databaseField.getText(),
+					tableField.getText()), controller.getModel().getTable().getTablesData().getTableColumnList(databaseField.getText(),
+					tableField.getText())); // print table on right panel
+
+		} else if (e.getSource() == modify) {
+			controller.getModel().getTable().getTablesData().modify(databaseField.getText(), tableField.getText(),  
+					modifyField.getText(), modifyFieldNew.getText(), dataTypeAdd.getSelectedItem().toString(), 
+					dataTypeModify.getSelectedItem().toString());
+			setTable(controller.getModel().getTable().getTablesData().getTable(databaseField.getText(),
+					tableField.getText()), controller.getModel().getTable().getTablesData().getTableColumnList(databaseField.getText(),
+					tableField.getText())); // print table on right panel
+			
+		} else if (e.getSource() == update) {
+			controller.getModel().getTable().getTablesData().updateColumn(databaseField.getText(), tableField.getText(), 
+					columnNameUpdate.getText(), conditionNameUpdate.getText(), columnValue.getText(), conditionValue.getText());
+			setTable(controller.getModel().getTable().getTablesData().getTable(databaseField.getText(),
+					tableField.getText()), controller.getModel().getTable().getTablesData().getTableColumnList(databaseField.getText(),
+					tableField.getText())); // print table on right panel
+			
+		} 
+
+	}
+	
+	private void showTableList (ActionEvent e) {
+		if (e.getSource() == tableField || e.getSource() == selectTable) {
+			if (databaseField.getText().equals("") || tableField.getText().equals("")) {
+				JOptionPane.showMessageDialog( null, "Your database field or table field is empty");
+			} else {
+				setTable(controller.getModel().getTable().getTablesData().getTable(databaseField.getText(),
+						tableField.getText()), controller.getModel().getTable().getTablesData().getTableColumnList(databaseField.getText(),
+						tableField.getText())); // print table on right panel
+			}
+			
+		} else if (e.getSource() == showTableField || e.getSource() == showTable) {
+			if (getTableDBListField.getText().equals("") || showTableField.getText().equals("")) {
+				JOptionPane.showMessageDialog( null, "Your DB name field or table name field is empty");
+			} else {
+				setTable(controller.getModel().getTable().getTablesData().getTable(getTableDBListField.getText(),
+						showTableField.getText()), controller.getModel().getTable().getTablesData().getTableColumnList(getTableDBListField.getText(),
+						showTableField.getText())); // print table on right panel
+			}
+			
+		}
+	}
+	
+	public void insertRow(ActionEvent e) {
+		if (e.getSource() == insert) {
+			
+			String[] column = controller.getModel().getTable().getTablesData().getTableColumnList(databaseField.getText(), tableField.getText());
+			String[][] row = controller.getModel().getTable().getTablesData().getTableRowList(databaseField.getText(), tableField.getText());
+			
+			String str1 = "ERROR"; 
+			String str2;
+			for (int i = 0; i < column.length; i++ ) {
+				if (i == 0) {
+					str1 = JOptionPane.showInputDialog("Enter value for "+ column[i] +". Current row number is: "+ row.length);
+					if (Integer.parseInt(str1) <= row.length ) {
+						JOptionPane.showMessageDialog( null, str1+" already exists");
+						return;
+					}
+					
+					controller.getModel().getTable().getTablesData().insertRow(databaseField.getText(), tableField.getText(), 
+							column[i], str1);
+					
+				} else {
+					str2 = JOptionPane.showInputDialog("Enter value for "+column[i]);
+					controller.getModel().getTable().getTablesData().updateColumn(databaseField.getText(), tableField.getText(), 
+							column[i], column[0], str2, str1);
+					
+				}
+			}
+			setTable(controller.getModel().getTable().getTablesData().getTable(databaseField.getText(),
+					tableField.getText()), controller.getModel().getTable().getTablesData().getTableColumnList(databaseField.getText(),
+					tableField.getText())); // print table on right panel
+			
+		}
+		
+	}
+	
+	public void getColumn(ActionEvent e) {
+		if (e.getSource() == colimnListSelect || e.getSource() == getTable) {
+			
+			if (getTableDBListField.getText().equals("") || showTableField.getText().equals("")) {
+				JOptionPane.showMessageDialog( null, "Your database field or table field is empty");
+			} else {
+				setTable(controller.getModel().getTable().getSelect().getTable(getTableDBListField.getText(),
+					showTableField.getText(), colimnListSelect.getText()), 
+					controller.getModel().getTable().getSelect().getTableColumnList(colimnListSelect.getText())); // print table on right panel
+			}
+			
+			
+		}
+	}
+
+	public void setController(Controller controller) {
+		this.controller = controller;
 	}
 }

@@ -1,15 +1,19 @@
 package com.jdbc.sql.model;
 
+import com.jdbc.sql.model.table.DoConnect;
+import com.jdbc.sql.model.table.Table;
+
 public class Model {
 
-	private DoConnect doConnect;
+	private Table table;
 
-	public DoConnect getDoConnect() {
-		return doConnect;
+	public Table getTable() {
+		return table;
 	}
 
-	public void setDoConnect(DoConnect doConnect) {
-		this.doConnect = doConnect;
+	public void setTable(Table table) {
+		this.table = table;
 	}
+	
 
 }

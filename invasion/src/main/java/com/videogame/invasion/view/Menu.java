@@ -50,7 +50,7 @@ public class Menu extends JPanel implements ActionListener, KeyListener {
 
 			play.paintComponent(g);
 
-			if (play.isGameEnd()) {
+			if (play.gameEnded()) {
 
 				controller.getModel().getSaveHighScore().saveScore(play.getscore() + " " + play.getPlayerName());
 				tm.stop();

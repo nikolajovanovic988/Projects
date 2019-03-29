@@ -174,7 +174,7 @@ public class Communication {
 		return null;
 	}
 	
-	// return selected table row
+	// return selected table column
 	public String[] getTableColumnList(String tableName, String databaseName) {
 			
 		try {
@@ -200,7 +200,7 @@ public class Communication {
 		return null;
 	}
 	
-	// Return selected table columns
+	// Return selected table rows
 	public String[][] getTableRowList(String tableName, String databaseName, String[] columnNames) {
 			
 		String[] col = columnNames;
