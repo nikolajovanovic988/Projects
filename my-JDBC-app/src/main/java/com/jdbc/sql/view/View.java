@@ -8,7 +8,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -71,14 +70,9 @@ public class View extends JPanel implements ActionListener {
 
 	public String[] column; // get list of column names
 	public String[][] row; // get 2d list of table data
-	public String[] columnDatabase = new String[] { "id", "Databases" }; // setup for begining
-	public String[] columnTables = new String[] { "id", "Tables" }; // setup for begining
+	public String[] columnDatabase = new String[] { "id", "Databases" }; // setup for beginning
+	public String[] columnTables = new String[] { "id", "Tables" }; // setup for beginning 
 
-//	public static String IP;
-//	public static String username;
-//	public static String pass;
-
-	// public Communication conn;
 	public ArrayList<String> databaseList;
 	public ArrayList<String> tableList;
 
@@ -523,44 +517,38 @@ public class View extends JPanel implements ActionListener {
 			setTable(controller.getModel().getTable().getTableList().getTable(databaseField.getText()),
 					controller.getModel().getTable().getTableList().getColumnList()); // print table on right panel
 
-		} else if (e.getSource() == drop) {
-			controller.getModel().getTable().getTablesData().deleteColumn(databaseField.getText(), tableField.getText(),
-					columnField.getText());
+		}
+		
+		if (e.getSource() == deleteRow || e.getSource() == modify || e.getSource() == update ||
+				e.getSource() == add || e.getSource() == drop) {
+			
+		
+			if (e.getSource() == drop) {
+				controller.getModel().getTable().getTablesData().deleteColumn(databaseField.getText(), tableField.getText(),
+						columnField.getText());
+	
+			} else if (e.getSource() == add) {
+				controller.getModel().getTable().getTablesData().addColumn(databaseField.getText(), tableField.getText(),
+						columnField.getText(), dataTypeAdd.getSelectedItem().toString());
+	
+			} else if (e.getSource() == deleteRow) {
+				controller.getModel().getTable().getTablesData().deleteRow(databaseField.getText(), tableField.getText(),
+						rowCondition.getText(), rowValue.getText());
+	
+			} else if (e.getSource() == modify) {
+				controller.getModel().getTable().getTablesData().modify(databaseField.getText(), tableField.getText(),  
+						modifyField.getText(), modifyFieldNew.getText(), dataTypeAdd.getSelectedItem().toString(), 
+						dataTypeModify.getSelectedItem().toString());
+				
+			} else if (e.getSource() == update) {
+				controller.getModel().getTable().getTablesData().updateColumn(databaseField.getText(), tableField.getText(), 
+						columnNameUpdate.getText(), conditionNameUpdate.getText(), columnValue.getText(), conditionValue.getText());
+				
+			} 
 			setTable(controller.getModel().getTable().getTablesData().getTable(databaseField.getText(),
 					tableField.getText()),controller.getModel().getTable().getTablesData().getTableColumnList(databaseField.getText(),
 					tableField.getText())); // print table on right panel
-
-		} else if (e.getSource() == add) {
-			controller.getModel().getTable().getTablesData().addColumn(databaseField.getText(), tableField.getText(),
-					columnField.getText(), dataTypeAdd.getSelectedItem().toString());
-			setTable(controller.getModel().getTable().getTablesData().getTable(databaseField.getText(),
-					tableField.getText()), controller.getModel().getTable().getTablesData().getTableColumnList(databaseField.getText(),
-					tableField.getText())); // print table on right panel
-
-		} else if (e.getSource() == deleteRow) {
-			controller.getModel().getTable().getTablesData().deleteRow(databaseField.getText(), tableField.getText(),
-					rowCondition.getText(), rowValue.getText());
-			setTable(controller.getModel().getTable().getTablesData().getTable(databaseField.getText(),
-					tableField.getText()), controller.getModel().getTable().getTablesData().getTableColumnList(databaseField.getText(),
-					tableField.getText())); // print table on right panel
-
-		} else if (e.getSource() == modify) {
-			controller.getModel().getTable().getTablesData().modify(databaseField.getText(), tableField.getText(),  
-					modifyField.getText(), modifyFieldNew.getText(), dataTypeAdd.getSelectedItem().toString(), 
-					dataTypeModify.getSelectedItem().toString());
-			setTable(controller.getModel().getTable().getTablesData().getTable(databaseField.getText(),
-					tableField.getText()), controller.getModel().getTable().getTablesData().getTableColumnList(databaseField.getText(),
-					tableField.getText())); // print table on right panel
-			
-		} else if (e.getSource() == update) {
-			controller.getModel().getTable().getTablesData().updateColumn(databaseField.getText(), tableField.getText(), 
-					columnNameUpdate.getText(), conditionNameUpdate.getText(), columnValue.getText(), conditionValue.getText());
-			setTable(controller.getModel().getTable().getTablesData().getTable(databaseField.getText(),
-					tableField.getText()), controller.getModel().getTable().getTablesData().getTableColumnList(databaseField.getText(),
-					tableField.getText())); // print table on right panel
-			
-		} 
-
+		}
 	}
 	
 	private void showTableList (ActionEvent e) {

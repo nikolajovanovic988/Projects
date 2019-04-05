@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-public abstract class TextRW {
+public class TextRW {
 
 	private String textName;
 
@@ -14,7 +14,7 @@ public abstract class TextRW {
 		this.textName = textName;
 	}
 
-	// Read file and send list of lines via ArrayList
+	// Read file and send list of lines as ArrayList
 	public ArrayList<String> readFromFile() {
 
 		BufferedReader rd;

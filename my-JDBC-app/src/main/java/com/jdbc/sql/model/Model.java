@@ -1,6 +1,5 @@
 package com.jdbc.sql.model;
 
-import com.jdbc.sql.model.table.DoConnect;
 import com.jdbc.sql.model.table.Table;
 
 public class Model {
